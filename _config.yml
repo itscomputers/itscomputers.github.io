@@ -1,0 +1,19 @@
+# site settings
+title: computations in number theory
+email: its_computers@protonmail.com
+description: a text on the intersection of number theory and computing
+baseurl: ''
+url: 'https://itscomputers.github.io'
+twitter_username: its_computers
+github_username: itscomputers
+
+# build settings
+markdown: kramdown
+include:
+  - _pages
+  - _sections
+kramdown:
+  math_engine_opts:
+    preview: true
+    preview_as_code: true
+

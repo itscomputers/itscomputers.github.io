@@ -1,0 +1,127 @@
+body {
+  background: $body-background-color;
+  margin: 0;
+  color: $font-color;
+  font-family: $font;
+  font-size: 1.1em;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  background: $main-background-color;
+  padding: 50px 15px;
+  max-width: $content-width;
+  margin: 0 auto 50px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0 40px;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: $heading-font-color;
+  font-family: $heading-font;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 2.5em;
+  a, a:visited {
+    text-decoration: none;
+    color: $heading-font-color;
+  }
+}
+
+h2 {
+  font-size: 2em;
+}
+
+a, a:visited {
+  color: $link-color;
+  text-decoration: none;
+  font-family: $link-font;
+}
+
+a:hover {
+  color: $link-color;
+  text-decoration: underline;
+  font-weight: bolder;
+}
+
+ul {
+  list-style-type: square;
+}
+
+.section-list {
+  font-family: $link-font;
+}
+
+blockquote, .highlight {
+  background: $blockquote-background-color;
+  padding: 5px 25px;
+  margin: 30px 15px;
+  outline: $blockquote-outline-color double 3px;
+}
+
+.container {
+  max-width: $content-width;
+  margin: 0 auto;
+}
+
+.language-plaintext {
+  color: $code-color;
+  font-family: $code-font;
+  padding: 0 1px;
+}
+
+/* Aside */
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: $nav-background-color;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 0px 1px 1px RGBA(4, 25, 54, 0.1);
+  nav {
+    float: left;
+    max-width: 800px;
+    margin: 0 auto;
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        float: left;
+        position: relative;
+        a {
+          text-decoration: none;
+          display: block;
+          padding: 15px;
+          font-family: $heading-font;
+          line-height: 20px;
+          margin-bottom: -1px;
+          box-shadow: 0;
+          &:hover,
+          &:active {
+            margin-bottom: -3px;
+            border-bottom: 3px solid $link-color;
+            text-decoration: none;
+            color: $link-color;
+            font-weight: bolder;
+          }
+        }
+      }
+    }
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+}
+

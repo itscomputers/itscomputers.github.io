@@ -1,0 +1,12 @@
+<div class="container">
+  <ul>
+    {% for page in site.pages %} {% if page.chapter %} {% if page.section %} {% if page.title %}
+    <li class="section-list">
+      {{ page.chapter }}.{{ page.section }} - <a
+        href="{{ page.url | prepend: site.baseurl }}"
+      >{{ page.title }}</a>
+    </li>
+    {% endif %} {% endif %} {% endif %} {% endfor %}
+  </ul>
+</div>
+
