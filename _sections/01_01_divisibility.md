@@ -82,7 +82,7 @@ and `b|a`, prove that `c|a`.
 1. Prove that the converse of <a href="#1.1.2">proposition 1.1.2</a> is false by
 providing a counter-example.
 
-1. Prove that the converse of <a href="#1.1.2">proposition 1.1.2</a> is false by
+1. Prove that the converse of <a href="#1.1.3">proposition 1.1.3</a> is false by
 providing a counter-example.
 
 1. If `d` divides both `a` and `b`, prove that `d` divides any integer combination
