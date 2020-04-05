@@ -66,15 +66,37 @@ blockquote, .highlight {
   outline: $blockquote-outline-color double 3px;
 }
 
+blockquote.proof {
+  background: $proof-background-color;
+  margin: 30px 20px;
+  border: 1px solid $proof-border-color;
+  outline: none;
+}
+
 .container {
   max-width: $content-width;
   margin: 0 auto;
 }
 
+.breadcrumbs {
+  display: flex;
+  justify-content: space-between;
+}
+
+code {
+  font-family: $code-font;
+}
+
 .language-plaintext {
   color: $code-color;
   font-family: $code-font;
+  font-weight: 600;
   padding: 0 1px;
+}
+
+.mjx-chtml {
+  color: $code-color;
+  font-weight: 600 !important;
 }
 
 /* Aside */

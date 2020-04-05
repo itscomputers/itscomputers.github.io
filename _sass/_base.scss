@@ -1,6 +1,6 @@
 $content-width: 800px;
 $body-background-color: #000000;
-$main-background-color: #242424;
+$main-background-color: #353535;
 $font-color: #c9c9c9;
 $link-color: #19ccaa;
 $heading-font-color: #49a8de;
@@ -9,12 +9,14 @@ $light: #ffffff;
 $nav-background-color: $body-background-color;
 $blockquote-background-color: $body-background-color;
 $blockquote-outline-color: $heading-font-color;
+$proof-background-color: #252525;
+$proof-border-color: #858585;
 $code-color: $light;
 
 $font: 'Arvo', sans-serif;
-$heading-font: 'Cousine', sans-serif;
-$link-font: $heading-font;
-$code-font: $heading-font;
+$heading-font: 'Source Code Pro', monospace;
+$link-font: 'Fira Code', monospace;
+$code-font: 'Fira Code', monospace;
 
 *,
 *::before,

@@ -13,7 +13,7 @@ include:
   - _pages
   - _sections
 kramdown:
+  math_engine: mathjax
   math_engine_opts:
     preview: true
     preview_as_code: true
-

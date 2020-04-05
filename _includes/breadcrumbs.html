@@ -1,0 +1,13 @@
+<div class="breadcrumbs">
+  <div>
+    {% if page.prev %}
+    <a href="{{ page.prev | prepend: site.baseurl }}">&#8592 prev</a>
+    {% endif %}
+  </div>
+  <div>
+    {% if page.next %}
+    <a href="{{ page.next | prepend: site.baseurl }}">next &#8594</a>
+    {% endif %}
+  </div>
+</div>
+

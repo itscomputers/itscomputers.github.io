@@ -2,7 +2,13 @@
 layout: default
 ---
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
 <h3>{{ page.chapter }}.{{ page.section }} - {{ page.title }}</h3>
+
+{% include breadcrumbs.html %}
 
 {{ content }}
 
