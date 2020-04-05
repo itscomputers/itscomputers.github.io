@@ -105,10 +105,10 @@ are special cases of the previous exercise.
 
 1. Write a function in the language of your choice that takes a pair of positive
 integers $$ b, $$ $$ a $$ and returns `true` if $$ b \mid a $$ and `false` otherwise.  This function
-should only use addition, multiplication, and comparison.
-In ruby, your function might look something like this:
+should only use addition, multiplication, and comparison.  Here is an example in ruby.
 
 {% highlight ruby %}
+# ruby
 def divides?(b, a)
   i = 0
   while m < a

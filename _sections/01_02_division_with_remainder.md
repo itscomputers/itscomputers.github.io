@@ -116,6 +116,7 @@ The division algorithm can be used to determine divisibility.
 The `divides?` function from the previous section can now be written much simpler.
 
 {% highlight ruby %}
+# ruby
 def divides?(a, b)
   a % b == 0
 end
