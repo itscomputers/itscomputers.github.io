@@ -113,7 +113,7 @@ The division algorithm can be used to determine divisibility.
 > it must be true that $$ q = n $$ and $$ r = 0 $$.
 {: .proof}
 
-The `divides?` function from the previous section can now be written much simpler.
+The `divides?` function from the previous section can now be written more simply.
 
 {% highlight ruby %}
 # ruby
