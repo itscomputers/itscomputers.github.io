@@ -44,7 +44,7 @@ is to check all multiples of $$ b $$ until you surpass $$ a. $$ Here is a
 ruby implementation of this naive divisibility algorithm, assuming that
 both $$ a $$ and $$ b $$ are positive.
 
-<span id="naive-divides-ruby-function" />
+<span id="ruby-naive-divides" />
 {% highlight ruby %}
 # ruby
 def divides?(b, a)
@@ -128,7 +128,7 @@ divides their product $$ ab. $$
 producing a counter-example.
 
 1. Write an improved version of the naive
-[divisibility function](#naive-divides-ruby-function) above.  It should
+[divisibility function](#ruby-naive-divides) above.  It should
 take *any nonzero* integer $$ b $$ and *any* integer $$ a $$ and return `true`
 if `b` divides `a` and `false` otherwise.  The function
 - may be in the language of your choice
