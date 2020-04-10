@@ -127,8 +127,8 @@ divides their product $$ ab. $$
 1. Show that the converse of the previous exercise is not true by
 producing a counter-example.
 
-1. Write an improved version of the naive
-[divisibility function](#ruby-naive-divides) above.  It should
+1. Write an improved version of the
+[naive divisibility function](#ruby-naive-divides) above.  It should
 take *any nonzero* integer $$ b $$ and *any* integer $$ a $$ and return `true`
 if `b` divides `a` and `false` otherwise.  The function
 - may be in the language of your choice
