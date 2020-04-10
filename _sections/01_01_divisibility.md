@@ -7,10 +7,10 @@ next: division-with-remainder
 permalink: divisibility
 ---
 
-<span id="1.1.1" />
+<span id="divides" />
 > **`definition 1.1.1`**:
-> We say that a nonzero integer $$ b $$ *divides* an integer $$ a $$ if there exists some
-> integer $$ n $$ such that $$ a = bn. $$
+> We say that a nonzero integer $$ b $$ *divides* an integer $$ a $$
+> if there exists some integer $$ n $$ such that $$ a = bn. $$
 {: definition}
 
 Here are a few examples:
@@ -19,59 +19,85 @@ Here are a few examples:
 - $$ 10 $$ does not divide $$ 45 $$ since $$ 45 $$ is between
 $$ 40 = 10 \cdot 4 $$ and $$ 50 = 10 \cdot 5 $$
 
-Notice that the above definition is synonymous with saying that $$ b $$ may be
-expressed as a multiple of $$ a. $$  In fact, the following statements are
-equivalent and mean that $$ a = bn. $$
+Notice that the above definition is synonymous with saying that $$ b $$
+may be expressed as a multiple of $$ a. $$  In fact, the following
+statements are equivalent and mean that $$ a $$ is can be expressed as
+$$ bn. $$
 - $$ b $$ divides $$ a $$
 - $$ a $$ is divisible by $$ b $$
 - $$ a $$ is a multiple of $$ b $$
 
-Although the three phrases have the same meaning, we will often use the first phrase.
-The notation for this is $$ b \mid a, $$ which reads "$$ b $$ divides $$ a $$".  Using
-this notation, the examples above are expressed as
+The notation for this concept is $$ b \mid a, $$ which reads "$$ b $$
+divides $$ a $$".  Using this notation, the examples above become:
 - $$ 15 \mid 45 $$ since $$ 45 = 15 \cdot 3 $$
 - $$ 9 \mid 45 $$ since $$ 45 = 9 \cdot 5 $$
 - $$ 10 \nmid 45 $$ since $$ 10 \cdot 4 < 45 < 10 \cdot 5 $$
 
-Be careful!  This notation may sometimes be confused with the division operation.
-If you see $$ 15 / 45, $$ it is the operation that results in one third.
-If you see $$ 15 \mid 45, $$ it is the statement that $$ 15 $$ divides $$ 45, $$
-ie, that $$ 45 $$ is divisible by $$ 15, $$ ie, that $$ 45 / 15 $$ is an integer.
+Be careful!  This notation may sometimes be confused with the division
+operation. If you see $$ 15 / 45, $$ it is the operation that returns
+the rational number $$ 1/3. $$  If you see $$ 15 \mid 45, $$ it is the
+statement that $$ 15 $$ divides $$ 45, $$ ie, that $$ 45 $$ is divisible
+by $$ 15, $$ ie, that $$ 45 / 15 $$ is an integer.
 
-Here are a couple of propositions about integers that can be proved from the
-definition of divisibility.
+As the last example suggests, a naive approach to determining divisibility
+is to check all multiples of $$ b $$ until you surpass $$ a. $$ Here is a
+ruby implementation of this naive divisibility algorithm, assuming that
+both $$ a $$ and $$ b $$ are positive.
 
-<span id="1.1.2" />
-> **`proposition 1.1.2`**:
-> If $$ d $$ divides both $$ a $$ and $$ b, $$ then $$ d $$ divides their sum.
-{: .proposition}
+<span id="naive-divides-ruby-function" />
+{% highlight ruby %}
+# ruby
+def divides?(b, a)
+  m = 0
+  while m < a
+    m += b
+  end
 
-> **`proof`**:
-> Since $$ d \mid a, $$ there is an integer $$ m $$ such that $$ a = dm. $$  Similarly,
-> since $$ d \mid b, $$ there is an integer $$ n $$ such that $$ b = dn. $$  Therefore,
-> the sum $$ a + b $$ is equal to $$ dm + dn = d (m + n). $$  Since $$ m + n $$ is
-> an integer, this equation implies that $$ d \mid (a + b). $$
-{: .proof}
+  m == a
+end
+{% endhighlight %}
 
-<span id="1.1.3" />
+A concept that will appear often is that of integer linear combinations.
+
+<span id="integer-linear-combination" />
+> **`definition 1.1.2`**:
+> An *integer linear combination* of integers $$ a $$ and $$ b $$ is an
+> integer of the form $$ ax + by $$ where $$ x $$ and $$ y $$ are integers.
+{: .definition}
+
+For example, $$ 11 $$ through $$ 15 $$ can all be expressed as linear
+combinations of $$ 5 $$ and $$ 6 $$.  Here are two examples of each.
+- $$ 11 = 5(1) + 6(1) $$ or $$ 11 = 5(7) + 6(-4) $$
+- $$ 12 = 5(0) + 6(2) $$ or $$ 12 = 5(6) + 6(-3) $$
+- $$ 13 = 5(-1) + 6(3) $$ or $$ 13 = 5(5) + 6(-2) $$
+- $$ 14 = 5(-2) + 6(4) $$ or $$ 14 = 5(4) + 6(-1) $$
+- $$ 15 = 5(-3) + 6(5) $$ or $$ 15 = 5(3) + 6(0) $$
+
+The following proposition about integer linear combinations will be used
+often.
+
+<span id="divides-linear-combinations" />
 > **`proposition 1.1.3`**:
-> If $$ d $$ divides either $$ a $$ or $$ b, $$ then $$ d $$ divides their product.
+> If $$ d $$ divides both $$ a $$ and $$ b, $$ then $$ d $$ divides any
+> integer linear combination of $$ a $$ and $$ b. $$
 {: .proposition}
 
 > **`proof`**:
-> If $$ d \mid a, $$ then there is an integer $$ m $$ such that $$ a = dm, $$ so the product is
-> $$ ab = (dm)b = d(mb), $$ which is a multiple of $$ d. $$
-> Otherwise, $$ d \mid b, $$ in which case there is an integer $$ n $$ such that $$ b = dn, $$ so
-> the product is $$ ab = a(dn) = d(an), $$ which is also a multiple of $$ d. $$
-> Either way, $$ ab $$ is divisible by $$ d. $$
+> Suppose that $$ d $$ divides $$ a $$ and $$ b. $$  By definition,
+> $$ a = dm $$ and $$ b = dn $$ for some integers $$ m, n. $$  Let
+> $$ c = ax + by $$ be an integer linear combination of $$ a $$ and
+> $$ b. $$  Then $$ c $$ can be expressed as
+> $$ (dm)x + (dn)y = d(mx + ny). $$  Since $$ mx + ny $$ is an integer,
+> this proves that $$ d \mid c. $$
 {: .proof}
 
 ---
 ### think about it:
 
-1. Why is $$ b $$ required to be nonzero in <a href="#1.1.1">definition 1.1.1</a>?
+1. Why is $$ b $$ required to be nonzero in [definition 1.1.1](#divides)?
 
-1. Does an integer exist which divides every other integer?  If so, find the integer(s).
+1. Does an integer exist which divides every integer?  If so, find all
+such integers.
 
 ---
 <span id="exercises" />
@@ -81,41 +107,31 @@ definition of divisibility.
 
 1. Prove that every integer divides itself.
 
-1. If $$ a $$ and $$ b $$ are positive integers and $$ b $$ divides $$ a, $$ prove that $$ b $$ is less
-than or equal to $$ a. $$
+1. If $$ a $$ and $$ b $$ are positive integers and $$ b $$ divides
+$$ a, $$ prove that $$ b $$ is less than or equal to $$ a. $$
 
 1. If two positive integers divide each other, prove that they are equal.
 
-1. Prove that the `divides` relation is *transitive*.  In other words, if $$ c \mid b $$
-and $$ b \mid a, $$ prove that $$ c \mid a. $$
-
-1. Prove that the converse of <a href="#1.1.2">proposition 1.1.2</a> is false by
-providing a counter-example.
-
-1. Prove that the converse of <a href="#1.1.3">proposition 1.1.3</a> is false by
-providing a counter-example.
+1. Prove that the `divides` relation is *transitive*.  In other words,
+if $$ c \mid b $$ and $$ b \mid a, $$ prove that $$ c \mid a. $$
 
 1. If $$ d $$ divides both $$ a $$ and $$ b, $$ prove that $$ d $$ divides
-any integer linear combination of $$ a $$ and $$ b. $$
-(Note that an *integer linear combination* of $$ a $$ and $$ b $$ is defined to
-be any integer of the form $$ ax + by, $$ where $$ x $$ and $$ y $$ are integers.)
+their sum $$ a + b. $$
 
-1. Show that propositions <a href="#1.1.2">1.1.2</a> and <a href="#1.1.3">1.1.3</a>
-are special cases of the previous exercise.
+1. Show that the converse of the previous exercise is not true by
+producing a counter-example.
 
-1. Write a function in the language of your choice that takes a pair of positive
-integers $$ b, $$ $$ a $$ and returns `true` if $$ b \mid a $$ and `false` otherwise.  This function
-should only use addition, multiplication, and comparison.  Here is an example in ruby.
+1. If $$ d $$ divides either $$ a $$ or $$ b, $$ prove that $$ d $$
+divides their product $$ ab. $$
 
-{% highlight ruby %}
-# ruby
-def divides?(b, a)
-  i = 0
-  while m < a
-    m += b
-  end
+1. Show that the converse of the previous exercise is not true by
+producing a counter-example.
 
-  m == a
-end
-{% endhighlight %}
+1. Write an improved version of the naive
+[divisibility function](#naive-divides-ruby-function) above.  It should
+take *any nonzero* integer $$ b $$ and *any* integer $$ a $$ and return `true`
+if `b` divides `a` and `false` otherwise.  The function
+- may be in the language of your choice
+- should **only** use addition, multiplication, and comparison.
+- should handle negative inputs as well as positive.
 
