@@ -26,12 +26,16 @@ This principle is equivalent to the **division algorithm**.
 > $$ a = bq + r $$ and $$ 0 \le r < |b|. $$
 {: .proposition}
 
-The integers $$ q $$ and $$ r $$ in the division algorithm are called the
-*quotient* and *remainder*, respectively.  Before proving the division
-algorithm, here are a few examples.
+Terminology:
+- $$ a $$ is called the *dividend*
+- $$ b $$ is called the *divisor*
+- $$ q $$ is called the *quotient*
+- $$ r $$ is called the *remainder*
+
+Before proving the division algorithm, here are a few examples.
 - Dividing $$ 71 $$ by $$ 20 $$ gives $$ 71 = 20(3) + 11 $$
-- Dividing $$ 71 $$ by $$ -20 $$ gives $$ 71 = -20(-3) + 9  $$
-- Dividing $$ -71 $$ by $$ 20 $$ gives $$ -71 = 20(-4) + 11 $$
+- Dividing $$ 71 $$ by $$ -20 $$ gives $$ 71 = -20(-3) + 11  $$
+- Dividing $$ -71 $$ by $$ 20 $$ gives $$ -71 = 20(-4) + 9 $$
 - Dividing $$ -71 $$ by $$ -20 $$ gives $$ -71 = -20(4) + 9 $$
 
 > **`proof of division algorithm`**:
@@ -51,67 +55,63 @@ algorithm, here are a few examples.
 > $$ a = -bQ - R = bq + r $$ with $$ 0 \le r < |b|. $$
 {: .proof}
 
-Most computer languages have functions that quickly compute the quotient
-and remainder for dividing positive integers.  Here are a few examples:
+In computing, the implementation of a division and remainder (modulus)
+operator likely will not match the specification given by the division
+algorithm.  When the dividend or divisor is negative, it may result
+in a negative remainder.
+
+In ruby, integer division is floor division, so the quotient `a / b` is
+computed by rounding down the rational number $$ a / b. $$  The sign of
+the remainder `a % b` is the same as the sign of the divisor `b`.
+
+{% highlight python %}
+#ruby
+(71 / 20, 71 % 20)
+# ~> (3, 11)
+
+(-71 / 20, -71 % 20)
+# ~> (-4, 9)
+
+(71 / -20, 71 % -20)
+# ~> (-4, -9)
+
+(-71 / -20, -71 % -20)
+# ~> (3, -11)
+{% endhighlight %}
+
+In rust, integer division is truncation, so the quotient `a / b` is
+computed by rounding the rational number $$ a / b $$ toward zero.  The
+sign of the remainder `a % b` is the same as the sign of the dividend `a`.
+
+{% highlight rust %}
+// rust
+(71 / 20, 71 % 20)
+// ~> (3, 11)
+
+(-71 / 20, -71 % 20)
+// ~> (-3, -11)
+
+(71 / -20, 71 % -20)
+// ~> (-3, 11)
+
+(-71 / -20, -71 % -20)
+// ~> (3, -11)
+{% endhighlight %}
+
+The implementation of a division algorithm function is therefore dependent
+on the chosen language.  In ruby, it might look something like this.
 
 {% highlight ruby %}
 # ruby
-71 / 20
-# ~> 3
-
-71 % 20
-# ~> 11
-
-71.divmod(20)
-# ~> [3, 11]
+def div_rem(a, b)
+  q = a / b
+  r = a % b
+  b < 0 ? [q + 1, r - b] : [q, r]
+end
 {% endhighlight %}
 
-{% highlight python %}
-# python
-71 // 20
-# ~> 3
-
-71 % 20
-# ~> 11
-
-divmod(71, 20)
-# ~> (3, 11)
-{% endhighlight %}
-
-{% highlight javascript %}
-// javascript
-Math.floor(71 / 20);
-// ~> 3
-
-71 % 20;
-// ~> 11
-{% endhighlight %}
-
-Each language, however, may handle negative values differently.
-In ruby, the computed remainder always has the same sign as the divisor,
-eg, `71 % -20` results in `-9`.
-In javascript, on the other hand, the computed remainder always has the
-same sign as the dividend, eg `-71 % 20` results in `-9`.
-Writing a function that produces the quotient and remainder required by the
-division algorithm may therefore require additional steps, depending on the
-language.  Here is a possible division algorithm in javascript.
-
-<span id="javascript-division-with-remainder" />
-{% highlight javascript %}
-// javascript
-function division(a, b) {
-  let r = a % b;
-  let q = (a - r) / b;
-  if (a < 0) {
-    r += Math.abs(b);
-    q += (b < 0) ? 1 : -1;
-  }
-  return [q, r];
-}
-{% endhighlight %}
-
-
-The division algorithm can be used to determine divisibility.
+The division algorithm is intimately related to the question of
+divisibility, as this proposition makes clear.
 
 <span id="1.2.2" />
 > **`proposition 1.2.2`**:
@@ -126,15 +126,14 @@ The division algorithm can be used to determine divisibility.
 > it must be true that $$ q = n $$ and $$ r = 0 $$.
 {: .proof}
 
-Using this proposition and the `%` operator, the
+Using this proposition, the
 [naive divisibility function](/divisibility#ruby-naive-divides)
-from the previous section can be rewritten more simply.
+is no longer needed.  Simply put, $$ b $$ divides $$ a $$ if and only if
+`a % b == 0`.
 
-<span id="ruby-divisibility" />
-{% highlight ruby %}
-# ruby
-def divides?(b, b)
-  a % b == 0
-end
-{% endhighlight %}
+---
+<span id="exercises" />
+### exercises
+
+1. Write a division algorithm function in a language other than ruby.
 

@@ -1,22 +1,33 @@
-$content-width: 800px;
-$body-background-color: #000000;
-$main-background-color: #353535;
-$font-color: #c9c9c9;
-$link-color: #19ccaa;
-$heading-font-color: #49a8de;
-$light: #ffffff;
+$black: #000000;
+$gray: #353535;
+$dark-gray: #252525;
+$light-gray: #c9c9c9;
+$green: #19ccaa;
+$bright-green: #49e9ca;
+$blue: #49a8de;
+$white: #ffffff;
 
-$nav-background-color: $body-background-color;
-$blockquote-background-color: $body-background-color;
-$blockquote-outline-color: $heading-font-color;
-$proof-background-color: #252525;
-$proof-border-color: #858585;
-$code-color: $light;
+$content-width: 800px;
+
+$body-background-color: $black;
+$main-background-color: $gray;
+$nav-background-color: $black;
+$blockquote-background-color: $black;
+$proof-background-color: $dark-gray;
+
+$font-color: $light-gray;
+$link-color: $green;
+$link-hover-color: $bright-green;
+$heading-font-color: $blue;
+
+$blockquote-outline-color: $blue;
+$proof-border-color: $light-gray;
+$code-color: $white;
 
 $font: 'Arvo', sans-serif;
 $heading-font: 'Source Code Pro', monospace;
-$link-font: 'Fira Code', monospace;
-$code-font: 'Fira Code', monospace;
+$link-font: 'Arvo';
+$code-font: 'Source Code Pro', monospace;
 
 *,
 *::before,

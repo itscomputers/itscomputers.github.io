@@ -46,9 +46,8 @@ a, a:visited {
 }
 
 a:hover {
-  color: $link-color;
+  color: $link-hover-color;
   text-decoration: underline;
-  font-weight: bolder;
 }
 
 ul {
@@ -92,6 +91,13 @@ code {
   font-family: $code-font;
   font-weight: 600;
   padding: 0 1px;
+}
+
+pre {
+  padding-left: 60px;
+  color: $code-color;
+  font-family: $code-font;
+  font-weight: 400;
 }
 
 .mjx-chtml {
