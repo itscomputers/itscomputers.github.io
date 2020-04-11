@@ -4,6 +4,7 @@ title: division with remainder
 chapter: 1
 section: 2
 prev: divisibility
+next: greatest-common-divisor
 permalink: division-with-remainder
 ---
 
