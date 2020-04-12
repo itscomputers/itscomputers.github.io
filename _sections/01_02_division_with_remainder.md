@@ -100,14 +100,26 @@ sign of the remainder `a % b` is the same as the sign of the dividend `a`.
 {% endhighlight %}
 
 The implementation of a division algorithm function is therefore dependent
-on the chosen language.  In ruby, it might look something like this.
+on the chosen language.  Here are two implementations in ruby.
 
 {% highlight ruby %}
 # ruby
-def div_rem(a, b)
+def div_one(a, b)
   q = a / b
   r = a % b
-  b < 0 ? [q + 1, r - b] : [q, r]
+
+  if b < 0
+    [q + 1, r - b]
+  else
+    [q, r]
+  end
+end
+
+def div_two(a, b)
+  r = a % b
+  r -= b if b < 0
+  q = (a - r) / b
+  [q, r]
 end
 {% endhighlight %}
 
@@ -137,4 +149,5 @@ is no longer needed.  Simply put, $$ b $$ divides $$ a $$ if and only if
 ### exercises
 
 1. Write a division algorithm function in a language other than ruby.
+
 

@@ -50,9 +50,9 @@ Programatically, this naive approach might look something like this.
 # ruby
 def gcd(a, b)
   divisor = nil
-  maximum = [a.abs, b.abs].max
+  max = [a.abs, b.abs].max
 
-  (1..maximum).each do |d|
+  (1..max).each do |d|
     if a % d == 0 && b % d == 0
       divisor = d
     end
@@ -132,7 +132,9 @@ either iteratively or recursively.
 {% highlight ruby %}
 # ruby
 def iterative_gcd(a, b)
-  a, b = [b, a % b] while b != 0
+  while b != 0
+    a, b = [b, a % b]
+  end
   a.abs
 end
 
