@@ -23,7 +23,7 @@ of the sign of the two integers --- the gcd is the same if you replace
 $$ a $$ with $$ -a $$ or $$ b $$ with $$ -b. $$
 
 - The definition of gcd does not make sense if both $$ a $$ and
-$$ b $$ are equal to 0.  The assumption for the rest of the section is
+$$ b $$ are equal to $$ 0. $$  The assumption for the rest of the section is
 that at least one of them is nonzero.
 
 The existence of a greatest common divisor stems from the following fact:
@@ -32,8 +32,9 @@ and can only have finitely many positive common divisors since any
 positive divisor of an integer is less than or equal to its absolute
 value.
 
-The greatest common divisor can be computed naively by computing all
-divisors and then comparing.  For example, to compute $$ \gcd(154, 56) $$
+The greatest common divisor can be computed naively by finding the positive
+divisors of each number and taking the intersection.  For example, to
+compute $$ \gcd(154, 56) $$
 - the positive divisors of $$ 154 $$ are
 $$ \{ 1, 2, 7, 11, 14, 22, 77, 154 \} $$
 - the positive divisors of $$ 56 $$ are
@@ -61,8 +62,8 @@ def gcd(a, b)
 end
 {% endhighlight %}
 
-This gcd algorithm is extremely slow, growing linearly in the size of the
-smaller of the two integers.  The next proposition is instrumental in
+This gcd algorithm is slow, growing linearly in the size of the smaller
+of the two integers.  The next proposition is instrumental in
 developing a more efficient algorithm to compute the gcd.
 
 <span id="division-algorithm-and-gcd" />
@@ -86,20 +87,24 @@ developing a more efficient algorithm to compute the gcd.
 
 Since the division algorithm results in a remainder that is strictly
 smaller than the absolute value of the divisor, this proposition will give
-a simpler pair of numbers for computing the greatest common divisor.  By
-repeatedly applying the division algorithm, the problem of computing the
-gcd eventually becomes trivial.
+a simpler pair of numbers for computing the greatest common divisor.  The
+**Euclidean algorithm** is repeated application of the division algorithm
+until reaching a remainder of $$ 0, $$ at which point the gcd is trivial
+to compute.
 
 - $$ 154 = 56(2) + 42 $$ implies that $$ \gcd(154, 56) = \gcd(56, 42) $$
 - $$ 56 = 42(1) + 14 $$ implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
-- $$ 42 = 14(3) + 0 $$ implies that $$ 14 \mid 42 $$
-- Working backwards, $$ 14 = \gcd(42, 14) $$ implies that
-$$ 14 = \gcd(56, 42) $$ which, in turn, implies that
-$$ 14 = \gcd(154, 56). $$
+- $$ 42 = 14(3) + 0 $$ implies that $$ \gcd(42, 14) = 14, $$ since
+$$ 14 \mid 42. $$
+
+The series of equalities shows that $$ \gcd(154, 56) = 14 $$ without
+explicitly computing any divisors.
 
 Repeated use of the division algorithm to compute the greatest common
-divisor is called the **Euclidean algorithm**.  In words, the last
-nonzero remainder is the gcd of the original pair of integers.
+divisor is called the **Euclidean algorithm**.  The last nonzero remainder
+is the gcd of the original pair of integers.
+
+Here is another formulation of the Euclidean algorithm.
 
 <span id="euclidean-algorithm" />
 > **`Euclidean algorithm`**:
@@ -109,18 +114,19 @@ nonzero remainder is the gcd of the original pair of integers.
 > 3. Set $$ a = b $$ and $$ b = r $$ and return to step 1.
 
 This algorithm will terminate in finitely many steps as long as the second
-step results in a remainder such that $$ |r| < |b|. $$  Although this
-algorithm been framed in terms of the division algorithm where the
-remainder is always positive, even modulus operators in computing that
-return negative remainders will satisfy $$ |r| < |b|. $$
+step results in a remainder such that $$ |r| < |b|. $$  When applying the
+division algorithm, this inequality is satisified by definition.  In
+languages where the modulus operator sometimes returns negative values,
+the value `a % b` still satisfies the inequality.
 
-The example from above can be reformulated purely in terms of remainders.
+The example from above can be reformulated purely in terms of the modulus
+operator.
 
-- `156 % 56 ~> 42` implies that $$ \gcd(156, 56) = \gcd(56, 42) $$
-- `56 % 42 ~> 14` implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
-- `42 % 14 ~> 0` implies that $$ \gcd(42, 14) = 14 $$
+- `154 % 56 == 42` implies that $$ \gcd(154, 56) = \gcd(56, 42) $$
+- `56 % 42 == 14` implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
+- `42 % 14 == 0` implies that $$ \gcd(42, 14) = 14 $$
 
-This formulation could be used to write a greatest common divisor function
+Using this formulation, a greatest common divisor function could be written
 either iteratively or recursively.
 
 {% highlight ruby %}
@@ -137,24 +143,27 @@ end
 {% endhighlight %}
 
 This new algorithm to compute the gcd is very fast: the growth is
-logarithmic in the smaller of the two integers.  In fact, It can be shown
+logarithmic in the smaller of the two integers.  In fact, it can be shown
 that the number of steps is at most 5 times the number of its decimal
 digits.
 
 ---
 ### think about it
 
-1. Explain why $$ \gcd(a, 0) = \vert a \vert $$ if $$ a $$ is nonzero.
-
 1. Explain why $$ \gcd(0, 0) $$ is undefined.
 
 ---
 ### exercises
+1. If $$ a $$ is nonzero, prove that $$ \gcd(a, 0) = \vert a \vert. $$
 
-1. Write a Euclidean algorithm function that prints each of the division
-algorithm results used to compute the gcd.  When run on the inputs
-`(154, 56)`, for example, it should print:
-<pre>
+1. If $$ b \mid a, $$ prove that $$ \gcd(a, b) = \vert b \vert. $$
+
+1. If $$ k $$ is nonzero, prove that $$ \gcd(ka, kb) = \gcd(a, b). $$
+
+1. Write a Euclidean algorithm function that prints the division algorithm
+result from each step used.  When run on the inputs `(154, 56)`, for
+example, it should print:
+<pre class="console">
 154 == 56 * 2 + 42
 56 == 42 * 1 + 14
 42 == 14 * 3 + 0

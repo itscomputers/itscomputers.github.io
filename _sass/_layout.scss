@@ -82,26 +82,25 @@ blockquote.proof {
   justify-content: space-between;
 }
 
-code {
+code, pre, .language-plaintext {
   font-family: $code-font;
 }
 
-.language-plaintext {
+.language-plaintext, .console, .mjx-chtml {
   color: $code-color;
-  font-family: $code-font;
+}
+
+.language-plaintext {
   font-weight: 600;
   padding: 0 1px;
 }
 
-pre {
+.console {
   padding-left: 60px;
-  color: $code-color;
-  font-family: $code-font;
   font-weight: 400;
 }
 
 .mjx-chtml {
-  color: $code-color;
   font-weight: 600 !important;
 }
 
