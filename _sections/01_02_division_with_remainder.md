@@ -21,7 +21,7 @@ the following principle.
 This principle is equivalent to the **division algorithm**.
 
 <span id="division-algorithm" />
-> **`proposition 1.2.1 (division algorithm)`**:
+> **`proposition 2 (division algorithm)`**:
 > For an integer $$ a $$ and a nonzero integer $$ b $$, there are unique
 > integers $$ q $$ and $$ r $$ such that
 > $$ a = bq + r $$ and $$ 0 \le r < |b|. $$
@@ -126,8 +126,8 @@ end
 The division algorithm is intimately related to the question of
 divisibility, as this proposition makes clear.
 
-<span id="1.2.2" />
-> **`proposition 1.2.2`**:
+<span id="divisibility-and-remainders" />
+> **`proposition 3`**:
 > A nonzero integer $$ b $$ divides an integer $$ a $$ if and only if
 > the division of $$ a $$ by $$ b $$ yields a remainder of $$ 0 $$.
 {: .proposition}

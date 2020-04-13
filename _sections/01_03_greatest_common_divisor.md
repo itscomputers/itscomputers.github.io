@@ -8,7 +8,7 @@ permalink: greatest-common-divisor
 ---
 
 <span id="greatest-common-divisor" />
-> **`definition 1.3.1`**:
+> **`definition`**:
 > A *common divisor* of two integers $$ a $$ and $$ b $$ is an integer
 > $$ d $$ such that $$ d \mid a $$ and $$ d \mid b. $$  The *greatest
 > common divisor* of $$ a $$ and $$ b $$ is their largest positive
@@ -67,7 +67,7 @@ of the two integers.  The next proposition is instrumental in
 developing a more efficient algorithm to compute the gcd.
 
 <span id="division-algorithm-and-gcd" />
-> **`proposition 1.3.2`**:
+> **`proposition 4`**:
 > If $$ a = bq + r, $$ then $$ \gcd(a, b) = \gcd(b, r). $$
 {: .proposition}
 

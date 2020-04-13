@@ -3,7 +3,6 @@ body {
   margin: 0;
   color: $font-color;
   font-family: $font;
-  font-size: 1.1em;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -61,7 +60,7 @@ ul {
 blockquote, .highlight {
   background: $blockquote-background-color;
   padding: 1px 15px;
-  margin: 30px 15px;
+  margin: 30px 5px;
   outline: $blockquote-outline-color double 3px;
 }
 
@@ -70,6 +69,10 @@ blockquote.proof {
   margin: 30px 20px;
   border: 1px solid $proof-border-color;
   outline: none;
+}
+
+strong code {
+  font-size: 1.1em;
 }
 
 .container {
@@ -83,6 +86,14 @@ blockquote.proof {
 }
 
 code, pre, .language-plaintext {
+  font-family: $code-font;
+}
+
+.section-list {
+  font-family: $code-font;
+}
+
+.section-list a {
   font-family: $code-font;
 }
 

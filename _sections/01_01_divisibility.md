@@ -7,10 +7,14 @@ next: division-with-remainder
 permalink: divisibility
 ---
 
+This study of integers begins with the notion of divisibility.  It is
+assumed that addition, subtraction, and multiplication of integers has
+already been defined and is well understood.
+
 <span id="divides" />
-> **`definition 1.1.1`**:
-> We say that a nonzero integer $$ b $$ *divides* an integer $$ a $$
-> if there exists some integer $$ n $$ such that $$ a = bn. $$
+> **`definition`**:
+> A nonzero integer $$ b $$ *divides* an integer $$ a $$ if there exists
+> some integer $$ n $$ such that $$ a = bn. $$
 {: definition}
 
 Here are a few examples:
@@ -39,6 +43,9 @@ the rational number $$ 1/3. $$  If you see $$ 15 \mid 45, $$ it is the
 statement that $$ 15 $$ divides $$ 45, $$ ie, that $$ 45 $$ is divisible
 by $$ 15, $$ ie, that $$ 45 / 15 $$ is an integer.
 
+---
+### in code
+
 As the last example suggests, a naive approach to determining divisibility
 is to check all multiples of $$ b $$ until you surpass $$ a. $$ Here is a
 ruby implementation of this naive divisibility algorithm, assuming that
@@ -57,10 +64,13 @@ def divides?(b, a)
 end
 {% endhighlight %}
 
+---
+### linear combinations
+
 A concept that will appear often is that of integer linear combinations.
 
 <span id="integer-linear-combination" />
-> **`definition 1.1.2`**:
+> **`definition`**:
 > An *integer linear combination* of integers $$ a $$ and $$ b $$ is an
 > integer of the form $$ ax + by $$ where $$ x $$ and $$ y $$ are integers.
 {: .definition}
@@ -77,7 +87,7 @@ The following proposition about integer linear combinations will be used
 often.
 
 <span id="divides-linear-combinations" />
-> **`proposition 1.1.3`**:
+> **`proposition 1`**:
 > If $$ d $$ divides both $$ a $$ and $$ b, $$ then $$ d $$ divides any
 > integer linear combination of $$ a $$ and $$ b. $$
 {: .proposition}
@@ -92,16 +102,17 @@ often.
 {: .proof}
 
 ---
-### think about it:
+### think about it
 
-1. Why is $$ b $$ required to be nonzero in [definition 1.1.1](#divides)?
+1. Why is $$ b $$ required to be nonzero in the
+[definition of *divides*](#divides)?
 
 1. Does an integer exist which divides every integer?  If so, find all
 such integers.
 
 ---
 <span id="exercises" />
-### exercises:
+### exercises
 
 1. Prove that every integer divides $$ 0. $$
 
