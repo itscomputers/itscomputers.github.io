@@ -88,9 +88,9 @@ developing a more efficient algorithm to compute the gcd.
 Since the division algorithm results in a remainder that is strictly
 smaller than the absolute value of the divisor, this proposition will give
 a simpler pair of numbers for computing the greatest common divisor.  The
-**Euclidean algorithm** is repeated application of the division algorithm
-until reaching a remainder of $$ 0, $$ at which point the gcd is trivial
-to compute.
+**Euclidean algorithm** is repeated application of the division algorithm,
+replacing $$ a, b $$ with $$ b, r $$ until reaching a remainder of $$ 0, $$
+at which point the gcd is trivial to compute.
 
 - $$ 154 = 56(2) + 42 $$ implies that $$ \gcd(154, 56) = \gcd(56, 42) $$
 - $$ 56 = 42(1) + 14 $$ implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
@@ -98,11 +98,8 @@ to compute.
 $$ 14 \mid 42. $$
 
 The series of equalities shows that $$ \gcd(154, 56) = 14 $$ without
-explicitly computing any divisors.
-
-Repeated use of the division algorithm to compute the greatest common
-divisor is called the **Euclidean algorithm**.  The last nonzero remainder
-is the gcd of the original pair of integers.
+explicitly computing any divisors.  In the Euclidean algorithm, the last
+nonzero remainder is the gcd of the original two integers.
 
 Here is another formulation of the Euclidean algorithm.
 
@@ -113,21 +110,29 @@ Here is another formulation of the Euclidean algorithm.
 > 2. Otherwise, compute $$ a = bq + r $$
 > 3. Set $$ a = b $$ and $$ b = r $$ and return to step 1.
 
-This algorithm will terminate in finitely many steps as long as the second
-step results in a remainder such that $$ |r| < |b|. $$  When applying the
-division algorithm, this inequality is satisified by definition.  In
-languages where the modulus operator sometimes returns negative values,
-the value `a % b` still satisfies the inequality.
+The Euclidean algorithm terminates after finitely many steps.  Since the
+remainders form a decreasing sequence of positive integers, there are
+can only be finitely many of them.
 
-The example from above can be reformulated purely in terms of the modulus
-operator.
+This new algorithm to compute the gcd is very fast: the growth is
+logarithmic in the smaller of the two integers.  In fact, it can be shown
+that the number of steps is at most 5 times the number of its decimal
+digits.
+
+In most programming languages, the modulus operator may return a negative
+remainder when dealing with negative values.  However, the result of
+`a % b` is still smaller than $$ b $$ in absolute value, so repeated
+applications of the modulus operator will also terminate after finitely
+many steps.  Since the proposition above applies regardless of whether
+$$ a = bq + r $$ comes from the division algorithm, the Euclidean
+algorithm may be implemented using only the modulus operator.
 
 - `154 % 56 == 42` implies that $$ \gcd(154, 56) = \gcd(56, 42) $$
 - `56 % 42 == 14` implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
 - `42 % 14 == 0` implies that $$ \gcd(42, 14) = 14 $$
 
-Using this formulation, a greatest common divisor function could be written
-either iteratively or recursively.
+The following are an iterative and a recursive implementation of the
+Euclidean algorithm to compute the gcd.
 
 {% highlight ruby %}
 # ruby
@@ -143,11 +148,6 @@ def recursive_gcd(a, b)
   recursive_gcd(b, a % b)
 end
 {% endhighlight %}
-
-This new algorithm to compute the gcd is very fast: the growth is
-logarithmic in the smaller of the two integers.  In fact, it can be shown
-that the number of steps is at most 5 times the number of its decimal
-digits.
 
 ---
 ### think about it
