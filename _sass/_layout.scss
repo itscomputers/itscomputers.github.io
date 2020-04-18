@@ -59,9 +59,13 @@ ul {
 
 blockquote, .highlight {
   background: $blockquote-background-color;
+  outline: $blockquote-outline-color double 3px;
   padding: 1px 15px;
   margin: 30px 5px;
-  outline: $blockquote-outline-color double 3px;
+}
+
+.highlight {
+  overflow: auto;
 }
 
 blockquote.proof {

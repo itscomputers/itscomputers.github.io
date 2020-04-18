@@ -56,6 +56,9 @@ Before proving the division algorithm, here are a few examples.
 > $$ a = -bQ - R = bq + r $$ with $$ 0 \le r < |b|. $$
 {: .proof}
 
+---
+### in code
+
 In computing, the implementation of a division and remainder (modulus)
 operator likely will not match the specification given by the division
 algorithm.  When the dividend or divisor is negative, it may result
@@ -99,32 +102,37 @@ sign of the remainder `a % b` is the same as the sign of the dividend `a`.
 // ~> (3, -11)
 {% endhighlight %}
 
-The implementation of a division algorithm function is therefore dependent
-on the chosen language.  Here are two implementations in ruby.
+There are various strategies for implementing the division algorithm,
+depending on the properties of the language.  Here are two examples.
 
 {% highlight ruby %}
 # ruby
-def div_one(a, b)
-  q = a / b
-  r = a % b
+def division_with_remainder(a, b)
+  q, r = a.divmod(b)
 
-  if b < 0
-    [q + 1, r - b]
-  else
-    [q, r]
-  end
-end
-
-def div_two(a, b)
-  r = a % b
-  r -= b if b < 0
-  q = (a - r) / b
-  [q, r]
+  b < 0 : [q + 1, r - b] ? [q, r]
 end
 {% endhighlight %}
 
-The division algorithm is intimately related to the question of
-divisibility, as this proposition makes clear.
+{% highlight rust %}
+// rust
+fn division_with_remainder(a: i32, b: i32) -> (i32, i32) {
+  let r = if a < 0 {
+    a % b + i32::abs(b)
+  } else {
+    a % b
+  };
+  let q = (a - r) / b;
+
+  (q, r)
+}
+{% endhighlight %}
+
+---
+### divisibility and remainders
+
+The division algorithm is related to the question of divisibility, as
+this proposition makes clear.
 
 <span id="divisibility-and-remainders" />
 > **`proposition 3`**:
@@ -133,10 +141,11 @@ divisibility, as this proposition makes clear.
 {: .proposition}
 
 > **`proof`**:
-> If the division algorithm gives $$ a = bq + r $$ with $$ r = 0$$, then $$ a = bq $$,
-> which implies the $$ b \mid a $$.  Conversely, if $$ b \mid a $$, then $$ a = bn $$
-> for some $$ n $$.  Since the division algorithm produces a unique quotient and remainder,
-> it must be true that $$ q = n $$ and $$ r = 0 $$.
+> If the division algorithm gives $$ a = bq + r $$ with $$ r = 0$$, then
+> $$ a = bq $$, which implies the $$ b \mid a $$.  Conversely, if
+> $$ b \mid a $$, then $$ a = bn $$ for some $$ n $$.  Since the division
+> algorithm produces a unique quotient and remainder, it must be true that
+> $$ q = n $$ and $$ r = 0 $$.
 {: .proof}
 
 Using this proposition, the
@@ -148,6 +157,7 @@ is no longer needed.  Simply put, $$ b $$ divides $$ a $$ if and only if
 <span id="exercises" />
 ### exercises
 
-1. Write a division algorithm function in a language other than ruby.
+1. Write a few different division algorithm functions in the language of
+your choice.
 
 

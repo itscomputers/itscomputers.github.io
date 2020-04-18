@@ -102,17 +102,13 @@ often.
 {: .proof}
 
 ---
-### think about it
-
-1. Why is $$ b $$ required to be nonzero in the
-[definition of *divides*](#divides)?
-
-1. Does an integer exist which divides every integer?  If so, find all
-such integers.
-
----
 <span id="exercises" />
 ### exercises
+
+1. Explain why $$ b $$ is required to be nonzero in the
+[definition of *divides*](#divides).
+
+1. Find all integers that divide every other integer, if any exist.
 
 1. Prove that every integer divides $$ 0. $$
 

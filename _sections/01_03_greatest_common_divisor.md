@@ -4,6 +4,7 @@ title: greatest common divisor
 chapter: 1
 section: 3
 prev: division-with-remainder
+next: least-common-multiple
 permalink: greatest-common-divisor
 ---
 
@@ -22,8 +23,8 @@ $$ \gcd(a, b). $$
 of the sign of the two integers --- the gcd is the same if you replace
 $$ a $$ with $$ -a $$ or $$ b $$ with $$ -b. $$
 
-- The definition of gcd does not make sense if both $$ a $$ and
-$$ b $$ are equal to $$ 0. $$  The assumption for the rest of the section is
+- The definition of gcd does not make sense if $$ a $$ and $$ b $$ are
+both equal to $$ 0. $$  The assumption for the rest of the section is
 that at least one of them is nonzero.
 
 The existence of a greatest common divisor stems from the following fact:
@@ -32,9 +33,12 @@ and can only have finitely many positive common divisors since any
 positive divisor of an integer is less than or equal to its absolute
 value.
 
+---
+### naive computation
+
 The greatest common divisor can be computed naively by finding the positive
-divisors of each number and taking the intersection.  For example, to
-compute $$ \gcd(154, 56) $$
+divisors of each number and taking the intersection of the two sets.  For
+example, to compute $$ \gcd(154, 56) $$
 - the positive divisors of $$ 154 $$ are
 $$ \{ 1, 2, 7, 11, 14, 22, 77, 154 \} $$
 - the positive divisors of $$ 56 $$ are
@@ -50,9 +54,9 @@ Programatically, this naive approach might look something like this.
 # ruby
 def gcd(a, b)
   divisor = nil
-  max = [a.abs, b.abs].max
+  maximum = [a.abs, b.abs].max
 
-  (1..max).each do |d|
+  (1..maximum).each do |d|
     if a % d == 0 && b % d == 0
       divisor = d
     end
@@ -61,6 +65,9 @@ def gcd(a, b)
   divisor
 end
 {% endhighlight %}
+
+---
+### Euclidean algorithm
 
 This gcd algorithm is slow, growing linearly in the size of the smaller
 of the two integers.  The next proposition is instrumental in
@@ -119,6 +126,9 @@ logarithmic in the smaller of the two integers.  In fact, it can be shown
 that the number of steps is at most 5 times the number of its decimal
 digits.
 
+---
+### in code
+
 In most programming languages, the modulus operator may return a negative
 remainder when dealing with negative values.  However, the result of
 `a % b` is still smaller than $$ b $$ in absolute value, so repeated
@@ -131,36 +141,52 @@ algorithm may be implemented using only the modulus operator.
 - `56 % 42 == 14` implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
 - `42 % 14 == 0` implies that $$ \gcd(42, 14) = 14 $$
 
-The following are an iterative and a recursive implementation of the
-Euclidean algorithm to compute the gcd.
+An iterative implementation in ruby.
 
 {% highlight ruby %}
 # ruby
-def iterative_gcd(a, b)
+def gcd(a, b)
   while b != 0
     a, b = [b, a % b]
   end
-  a.abs
-end
-
-def recursive_gcd(a, b)
-  return a.abs if b == 0
-  recursive_gcd(b, a % b)
+  a == 0 ? nil : a.abs
 end
 {% endhighlight %}
 
----
-### think about it
+A recursive implementation in rust.
 
-1. Explain why $$ \gcd(0, 0) $$ is undefined.
+{% highlight rust %}
+fn gcd(a: i32, b: i32) -> i32 {
+  if b == 0 {
+    if a == 0 {
+      panic!("gcd(0, 0) is undefined");
+    }
+    return i32::abs(a);
+  }
+
+  gcd(b, a % b)
+}
+{% endhighlight %}
 
 ---
 ### exercises
+1. Explain why $$ \gcd(0, 0) $$ is undefined.
+
 1. If $$ a $$ is nonzero, prove that $$ \gcd(a, 0) = \vert a \vert. $$
 
 1. If $$ b \mid a, $$ prove that $$ \gcd(a, b) = \vert b \vert. $$
 
-1. If $$ k $$ is nonzero, prove that $$ \gcd(ka, kb) = \gcd(a, b). $$
+1. If $$ k $$ is a nonzero integer, prove that
+$$ \gcd(ka, kb) = \vert k \vert \cdot \gcd(a, b). $$
+
+1. If $$ d = gcd(a, b), $$ prove that
+$$ \gcd \Big( \dfrac{a}{d}, \dfrac{b}{d} \Big) = 1. $$
+
+1. Write a gcd function in the language of your choice.
+
+1. Perform some benchmarking to verify that the time complexity of your
+gcd function grows logarithmically in the size of the smaller of the two
+arguments.
 
 1. Write a Euclidean algorithm function that prints the division algorithm
 result from each step used.  When run on the inputs `(154, 56)`, for
@@ -170,3 +196,4 @@ example, it should print:
 56 == 42 * 1 + 14
 42 == 14 * 3 + 0
 </pre>
+
