@@ -4,7 +4,7 @@ title: greatest common divisor
 chapter: 1
 section: 3
 prev: division-with-remainder
-next: least-common-multiple
+next: bezouts-identity
 permalink: greatest-common-divisor
 ---
 
@@ -14,7 +14,7 @@ permalink: greatest-common-divisor
 > $$ d $$ such that $$ d \mid a $$ and $$ d \mid b. $$  The *greatest
 > common divisor* of $$ a $$ and $$ b $$ is their largest positive
 > common divisor.
-{: definition}
+{: .definition}
 
 - The notation for the greatest common divisor of $$ a $$ and $$ b $$ is
 $$ \gcd(a, b). $$
@@ -38,14 +38,14 @@ value.
 
 The greatest common divisor can be computed naively by finding the positive
 divisors of each number and taking the intersection of the two sets.  For
-example, to compute $$ \gcd(154, 56) $$
-- the positive divisors of $$ 154 $$ are
-$$ \{ 1, 2, 7, 11, 14, 22, 77, 154 \} $$
-- the positive divisors of $$ 56 $$ are
-$$ \{ 1, 2, 4, 7, 8, 14, 28, 56 \} $$
-- the positive common divisors of $$ 154 $$ and $$ 56 $$ are
+example, to compute $$ \gcd(322, 56) $$
+- the positive divisors of $$ 322 $$ are
+$$ \{ 1, 2, 7, 14, 23, 46, 161, 322 \} $$
+- the positive divisors of $$ 70 $$ are
+$$ \{ 1, 2, 5, 7, 10, 14, 35, 70 \} $$
+- the positive common divisors of $$ 322 $$ and $$ 70 $$ are
 $$ \{ 1, 2, 7, 14 \} $$
-- the greatest common divisor is $$ \gcd(154, 56) = 14 $$
+- the greatest common divisor is $$ \gcd(322, 70) = 14 $$
 
 Programatically, this naive approach might look something like this.
 
@@ -94,17 +94,21 @@ developing a more efficient algorithm to compute the gcd.
 
 Since the division algorithm results in a remainder that is strictly
 smaller than the absolute value of the divisor, this proposition will give
-a simpler pair of numbers for computing the greatest common divisor.  The
-**Euclidean algorithm** is repeated application of the division algorithm,
+a simpler pair of numbers for computing the greatest common divisor.
+
+The **Euclidean algorithm** is repeated application of the
+[division algorithm](division-with-remainder#division-algorithm),
 replacing $$ a, b $$ with $$ b, r $$ until reaching a remainder of $$ 0, $$
 at which point the gcd is trivial to compute.
 
-- $$ 154 = 56(2) + 42 $$ implies that $$ \gcd(154, 56) = \gcd(56, 42) $$
-- $$ 56 = 42(1) + 14 $$ implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
-- $$ 42 = 14(3) + 0 $$ implies that $$ \gcd(42, 14) = 14, $$ since
-$$ 14 \mid 42. $$
+|  division w/ remainder |                    gcd implication |
+|-----------------------:|-----------------------------------:|
+| $$ 322 = 70(4) + 42 $$ | $$ \gcd(322, 70) = \gcd(70, 42) $$ |
+|  $$ 70 = 42(1) + 28 $$ |  $$ \gcd(70, 42) = \gcd(42, 28) $$ |
+|  $$ 42 = 28(1) + 14 $$ |  $$ \gcd(42, 28) = \gcd(28, 14) $$ |
+|   $$ 28 = 14(2) + 0 $$ |            $$ \gcd(28, 14) = 14 $$ |
 
-The series of equalities shows that $$ \gcd(154, 56) = 14 $$ without
+The series of equalities shows that $$ \gcd(322, 70) = 14 $$ without
 explicitly computing any divisors.  In the Euclidean algorithm, the last
 nonzero remainder is the gcd of the original two integers.
 
@@ -113,9 +117,9 @@ Here is another formulation of the Euclidean algorithm.
 <span id="euclidean-algorithm" />
 > **`Euclidean algorithm`**:
 > To compute $$ \gcd(a, b) $$
-> 1. If $$ b = 0, $$ return the absolute value of $$ a $$
-> 2. Otherwise, compute $$ a = bq + r $$
-> 3. Set $$ a = b $$ and $$ b = r $$ and return to step 1.
+> 1. If $$ b = 0, $$ return $$ \vert a \vert $$
+> 2. Otherwise, compute $$ a = bq + r $$ and return to step 1, replacing
+> $$ (a, b) $$ with $$ (b, r). $$
 
 The Euclidean algorithm terminates after finitely many steps.  Since the
 remainders form a decreasing sequence of positive integers, there are
@@ -137,12 +141,16 @@ many steps.  Since the proposition above applies regardless of whether
 $$ a = bq + r $$ comes from the division algorithm, the Euclidean
 algorithm may be implemented using only the modulus operator.
 
-- `154 % 56 == 42` implies that $$ \gcd(154, 56) = \gcd(56, 42) $$
-- `56 % 42 == 14` implies that $$ \gcd(56, 42) = \gcd(42, 14) $$
-- `42 % 14 == 0` implies that $$ \gcd(42, 14) = 14 $$
+| modulus operator |                    gcd implication |
+|-----------------:|-----------------------------------:|
+| `322 % 70 == 42` | $$ \gcd(322, 70) = \gcd(70, 42) $$ |
+|  `70 % 42 == 28` |  $$ \gcd(70, 42) = \gcd(42, 28) $$ |
+|  `42 % 28 == 14` |  $$ \gcd(42, 28) = \gcd(28, 14) $$ |
+|   `28 % 14 == 0` |            $$ \gcd(28, 14) = 14 $$ |
 
 An iterative implementation in ruby.
 
+<span id="ruby-gcd" />
 {% highlight ruby %}
 # ruby
 def gcd(a, b)
@@ -155,6 +163,7 @@ end
 
 A recursive implementation in rust.
 
+<span id="rust-gcd" />
 {% highlight rust %}
 fn gcd(a: i32, b: i32) -> i32 {
   if b == 0 {
@@ -169,18 +178,45 @@ fn gcd(a: i32, b: i32) -> i32 {
 {% endhighlight %}
 
 ---
+### testing
+
+<span id="dividing-by-gcd-results-in-relatively-prime" />
+> **`proposition 5`**:
+> If $$ d = \gcd(a, b), $$ then $$ \gcd(a/d, b/d) = 1. $$
+{: .proposition}
+
+> **`proof`**:
+> Let $$ k = \gcd(a/d, b/d). $$  Then $$ a/d = km $$ and $$ b/d = kn. $$
+> This implies that $$ a = kdm $$ and $$ b = kdn. $$  Therefore, $$ kd $$
+> is a common divisor of $$ a $$ and $$ b. $$  If $$ k $$ were not equal
+> to $$ 1, $$ then $$ kd $$ would be a larger common divisor than the
+> greatest common divisor $$ d, $$ a contradiction.
+{: .proof}
+
+This proposition adds a nice property to include in a test for the `gcd`
+function.
+
+{% highlight ruby %}
+# ruby
+def test_gcd_for(a, b, result=nil)
+  d = result || gcd(a, b)
+  error = "`gcd` failed for #{a}, #{b}"
+
+  raise error if d.nil? && (a != 0 || b != 0)
+  raise error unless d > 0
+  raise error unless a % d == 0
+  raise error unless b % d == 0
+  raise error unless gcd(a/d, b/d) == 1
+end
+{% endhighlight %}
+
+---
 ### exercises
 1. Explain why $$ \gcd(0, 0) $$ is undefined.
 
 1. If $$ a $$ is nonzero, prove that $$ \gcd(a, 0) = \vert a \vert. $$
 
 1. If $$ b \mid a, $$ prove that $$ \gcd(a, b) = \vert b \vert. $$
-
-1. If $$ k $$ is a nonzero integer, prove that
-$$ \gcd(ka, kb) = \vert k \vert \cdot \gcd(a, b). $$
-
-1. If $$ d = gcd(a, b), $$ prove that
-$$ \gcd \Big( \dfrac{a}{d}, \dfrac{b}{d} \Big) = 1. $$
 
 1. Write a gcd function in the language of your choice.
 
@@ -189,11 +225,11 @@ gcd function grows logarithmically in the size of the smaller of the two
 arguments.
 
 1. Write a Euclidean algorithm function that prints the division algorithm
-result from each step used.  When run on the inputs `(154, 56)`, for
+result from each step used.  When run on the inputs `(322, 70)`, for
 example, it should print:
 <pre class="console">
-154 == 56 * 2 + 42
-56 == 42 * 1 + 14
-42 == 14 * 3 + 0
+322 == 70 * 4 + 42
+70 == 42 * 1 + 28
+42 == 28 * 1 + 14
+28 == 14 * 2 + 0
 </pre>
-

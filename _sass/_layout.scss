@@ -79,6 +79,21 @@ strong code {
   font-size: 1.1em;
 }
 
+table {
+  margin-left: 20px;
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid $table-border-color;
+  padding: 5px 15px;
+}
+
+th {
+  background: $table-header-background-color;
+  border-bottom: 3px solid $table-border-color;
+}
+
 .container {
   max-width: $content-width;
   margin: 0 auto;

@@ -68,52 +68,38 @@ In ruby, integer division is floor division, so the quotient `a / b` is
 computed by rounding down the rational number $$ a / b. $$  The sign of
 the remainder `a % b` is the same as the sign of the divisor `b`.
 
-{% highlight python %}
-#ruby
-(71 / 20, 71 % 20)
-# ~> (3, 11)
-
-(-71 / 20, -71 % 20)
-# ~> (-4, 9)
-
-(71 / -20, 71 % -20)
-# ~> (-4, -9)
-
-(-71 / -20, -71 % -20)
-# ~> (3, -11)
-{% endhighlight %}
+|   `a` |   `b` | `a / b` | `a % b` |
+|------:|------:|--------:|--------:|
+|  `71` |  `20` |     `3` |    `11` |
+|  `71` | `-20` |    `-4` |    `-9` |
+| `-71` |  `20` |    `-4` |     `9` |
+| `-71` | `-20` |     `3` |   `-11` |
 
 In rust, integer division is truncation, so the quotient `a / b` is
 computed by rounding the rational number $$ a / b $$ toward zero.  The
 sign of the remainder `a % b` is the same as the sign of the dividend `a`.
 
-{% highlight rust %}
-// rust
-(71 / 20, 71 % 20)
-// ~> (3, 11)
+|   `a` |   `b` | `a / b` | `a % b` |
+|------:|------:|--------:|--------:|
+|  `71` |  `20` |     `3` |    `11` |
+|  `71` | `-20` |    `-3` |    `11` |
+| `-71` |  `20` |    `-3` |   `-11` |
+| `-71` | `-20` |     `3` |   `-11` |
 
-(-71 / 20, -71 % 20)
-// ~> (-3, -11)
+There are various ways to implement the division algorithm, depending on
+the properties of the language.  Here are two examples.
 
-(71 / -20, 71 % -20)
-// ~> (-3, 11)
-
-(-71 / -20, -71 % -20)
-// ~> (3, -11)
-{% endhighlight %}
-
-There are various strategies for implementing the division algorithm,
-depending on the properties of the language.  Here are two examples.
-
+<span id="ruby-division-with-remainder" />
 {% highlight ruby %}
 # ruby
 def division_with_remainder(a, b)
   q, r = a.divmod(b)
 
-  b < 0 : [q + 1, r - b] ? [q, r]
+  b < 0 ? [q + 1, r - b] : [q, r]
 end
 {% endhighlight %}
 
+<span id="rust-division-with-remainder" />
 {% highlight rust %}
 // rust
 fn division_with_remainder(a: i32, b: i32) -> (i32, i32) {
@@ -127,6 +113,59 @@ fn division_with_remainder(a: i32, b: i32) -> (i32, i32) {
   (q, r)
 }
 {% endhighlight %}
+
+---
+### testing
+
+There are many testing strategies, but specifying the properties that the
+result of a function should satisfy can be very useful.  This is
+particularly true if property-based testing is to be employed.
+
+The following is a fairly rudimentary testing strategy.  It begins by
+defining a function that will raise an error if any of the key properties
+of the division algorithm is violated.  This function can then be run
+against specific test cases and/or randomized test cases.
+
+{% highlight ruby %}
+# ruby
+def test_div_rem_for(a, b, result=nil)
+  q, r = result || division_with_remainder(a, b)
+  error = "`division_with_remainder` failed for #{a}, #{b}"
+
+  raise error unless 0 <= r && r < b.abs
+  raise error unless a == b * q + r
+end
+
+def test_div_rem_specific
+  [
+    [71, 20, [3, 11]],
+    [71, -20, [-3, 11]],
+    [-71, 20, [-4, 9]],
+    [-71, -20, [4, 9]],
+  ].each do |(a, b, result)|
+    test_div_rem_for(a, b, result)
+  end
+end
+
+def test_div_rem_random(iterations, maximum)
+  iterations.times do
+    test_div_rem_for(Random.rand(maximum), Random.rand(maximum))
+  end
+end
+
+def test_division_with_remainder
+  test_div_rem_specific
+  test_div_rem_random(10 ** 4, 10 ** 8)
+end
+{% endhighlight %}
+
+The first function is the one that encodes the properties of
+`division_with_remainder`.  The rest is a testing strategy that includes
+specific and randomized test cases.  The language you use may have a
+powerful property-based testing framework that is capable of testing the
+given properties over a large search space using random samples and
+fuzzing.  In the sections that follow, only the relevant properties of a
+function will be shown in a testing function.
 
 ---
 ### divisibility and remainders
@@ -157,7 +196,8 @@ is no longer needed.  Simply put, $$ b $$ divides $$ a $$ if and only if
 <span id="exercises" />
 ### exercises
 
-1. Write a few different division algorithm functions in the language of
-your choice.
+1. Write a `division_with_remainder` function in the language of your
+choice and write tests to verify its correctness.
+
 
 
