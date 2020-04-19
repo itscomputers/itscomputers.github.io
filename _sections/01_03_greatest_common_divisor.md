@@ -101,16 +101,16 @@ The **Euclidean algorithm** is repeated application of the
 replacing $$ a, b $$ with $$ b, r $$ until reaching a remainder of $$ 0, $$
 at which point the gcd is trivial to compute.
 
-|  division w/ remainder |                    gcd implication |
-|-----------------------:|-----------------------------------:|
-| $$ 322 = 70(4) + 42 $$ | $$ \gcd(322, 70) = \gcd(70, 42) $$ |
-|  $$ 70 = 42(1) + 28 $$ |  $$ \gcd(70, 42) = \gcd(42, 28) $$ |
-|  $$ 42 = 28(1) + 14 $$ |  $$ \gcd(42, 28) = \gcd(28, 14) $$ |
-|   $$ 28 = 14(2) + 0 $$ |            $$ \gcd(28, 14) = 14 $$ |
+|-----------------------:|:---------------------|
+|                        | $$ \gcd(322, 70) $$  |
+| $$ 322 = 70(4) + 42 $$ | $$ = \gcd(70, 42) $$ |
+|  $$ 70 = 42(1) + 28 $$ | $$ = \gcd(42, 28) $$ |
+|  $$ 42 = 28(1) + 14 $$ | $$ = \gcd(28, 14) $$ |
+|   $$ 28 = 14(2) + 0 $$ | $$ = 14 $$           |
 
-The series of equalities shows that $$ \gcd(322, 70) = 14 $$ without
-explicitly computing any divisors.  In the Euclidean algorithm, the last
-nonzero remainder is the gcd of the original two integers.
+In the Euclidean algorithm, the last nonzero remainder is the gcd of the
+original two integers.  The gcd is computed without explicitly finding
+any of the divisors.
 
 Here is another formulation of the Euclidean algorithm.
 
@@ -141,12 +141,12 @@ many steps.  Since the proposition above applies regardless of whether
 $$ a = bq + r $$ comes from the division algorithm, the Euclidean
 algorithm may be implemented using only the modulus operator.
 
-| modulus operator |                    gcd implication |
-|-----------------:|-----------------------------------:|
-| `322 % 70 == 42` | $$ \gcd(322, 70) = \gcd(70, 42) $$ |
-|  `70 % 42 == 28` |  $$ \gcd(70, 42) = \gcd(42, 28) $$ |
-|  `42 % 28 == 14` |  $$ \gcd(42, 28) = \gcd(28, 14) $$ |
-|   `28 % 14 == 0` |            $$ \gcd(28, 14) = 14 $$ |
+|-----------------:|:---------------------|
+|                  | $$ \gcd(322, 70) $$  |
+| `322 % 70 == 42` | $$ = \gcd(70, 42) $$ |
+|  `70 % 42 == 28` | $$ = \gcd(42, 28) $$ |
+|  `42 % 28 == 14` | $$ = \gcd(28, 14) $$ |
+|   `28 % 14 == 0` | $$ = 14 $$           |
 
 An iterative implementation in ruby.
 
