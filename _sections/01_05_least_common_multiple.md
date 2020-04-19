@@ -28,6 +28,23 @@ are is equal to $$ 0. $$
 The existence of a least common multiple stems from the fact that the
 absolute value of the product of the two integers is a common multiple.
 
+<span id="lcm-divides-common-multiples" />
+> **`proposition 8`**:
+> Every common multiple of $$ a $$ and $$ b $$ is a multiple of the least
+> common multiple.
+{: .proposition}
+
+> **`proof`**:
+> Let $$ k $$ be a common multiple of $$ a $$ and $$ b $$ and let $$ m $$
+> be the least common multiple.  Dividing $$ k $$ by $$ m $$ yields
+> $$ k = mq + r, $$ where $$ 0 \le r < m. $$  Since $$ r = k - mq $$ is
+> a linear combination of $$ k $$ and $$ m, $$ then $$ r $$ must be
+> divisible by both $$ a $$ and $$ b, $$ ie $$ r $$ must be a common
+> multiple of $$ a $$ and $$ b. $$  If $$ r $$ were nonzero, then it would
+> be a smaller positive common multiple than the least common multiple,
+> a contradiction.  Therefore, $$ r = 0 $$ and $$ m \mid k. $$
+{: .proof}
+
 ---
 ### naive computation
 
@@ -73,13 +90,20 @@ grows linearly in the smaller of the two arguments.
 > **`proof`**:
 > For simplicity, assume that $$ a $$ and $$ b $$ are positive.  Define
 > $$ d = \gcd(a, b) $$ and $$ m = \operatorname{lcm}(a, b). $$ The goal
-> is to prove $$ md = ab. $$
+> is to prove that $$ md = ab. $$
 >
 > Since the integer $$ ab/d $$ can be expressed as $$ (a/d) \cdot b $$
 > or $$ a \cdot (b/d), $$ it must be a common multiple of $$ a $$
-> and $$ b. $$  By definition of least common multiple, this means that
-> $$ m \le ab/d. $$
+> and $$ b. $$  By [proposition 8](#lcm-divides-common-multiples),
+> $$ ab/d $$ is divisible by $$ m, $$ which means that $$ md \mid ab. $$
 >
+> Using Bezout's identity, $$ d = ax + by $$ for some integers $$ x $$
+> and $$ y. $$  Multiplying both sides by $$ m $$ yields
+> $$ md = amx + bmy. $$  Since $$ b \mid m, $$ it follows that
+> $$ ab \mid am. $$  Similarly, since $$ a \mid m, $$ it follows that
+> $$ ab \mid bm. $$  These two imply that $$ ab \mid md. $$
 >
+> Since each of $$ md $$ and $$ ab $$ is positive and divides the other,
+> they must be equal.
 {: .proof}
 
