@@ -2,7 +2,7 @@
 layout: section
 title: least common multiple
 chapter: 1
-section: 4
+section: 5
 prev: bezouts-identity
 permalink: least-common-multiple
 ---
