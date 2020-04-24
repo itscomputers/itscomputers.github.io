@@ -4,7 +4,6 @@ title: greatest common divisor
 chapter: 1
 section: 3
 prev: division-with-remainder
-next: bezouts-identity
 permalink: greatest-common-divisor
 ---
 
@@ -112,7 +111,7 @@ In the Euclidean algorithm, the last nonzero remainder is the gcd of the
 original two integers.  The gcd is computed without explicitly finding
 any of the divisors.
 
-Here is another formulation of the Euclidean algorithm.
+Here is a concise formulation of the Euclidean algorithm.
 
 <span id="euclidean-algorithm" />
 > **`Euclidean algorithm`**:
@@ -166,14 +165,11 @@ A recursive implementation in rust.
 <span id="rust-gcd" />
 {% highlight rust %}
 fn gcd(a: i32, b: i32) -> i32 {
-  if b == 0 {
-    if a == 0 {
-      panic!("gcd(0, 0) is undefined");
-    }
-    return i32::abs(a);
+  match (a, b) {
+    (0, 0) => panic!("gcd(0, 0) is undefined"),
+    (x, 0) => i32::abs(x),
+    _ => gcd(b, a % b)
   }
-
-  gcd(b, a % b)
 }
 {% endhighlight %}
 
@@ -198,7 +194,7 @@ function.
 
 {% highlight ruby %}
 # ruby
-def test_gcd_for(a, b, result=nil)
+def test_gcd_for(a, b)
   d = result || gcd(a, b)
   error = "`gcd` failed for #{a}, #{b}"
 

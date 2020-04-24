@@ -119,53 +119,20 @@ fn division_with_remainder(a: i32, b: i32) -> (i32, i32) {
 
 There are many testing strategies, but specifying the properties that the
 result of a function should satisfy can be very useful.  This is
-particularly true if property-based testing is to be employed.
+particularly true when using property-based testing.
 
-The following is a fairly rudimentary testing strategy.  It begins by
-defining a function that will raise an error if any of the key properties
-of the division algorithm is violated.  This function can then be run
-against specific test cases and/or randomized test cases.
+The important properties of division with remainder are given below.
 
 {% highlight ruby %}
 # ruby
-def test_div_rem_for(a, b, result=nil)
-  q, r = result || division_with_remainder(a, b)
+def test_div_rem_for(a, b)
+  q, r = division_with_remainder(a, b)
   error = "`division_with_remainder` failed for #{a}, #{b}"
 
   raise error unless 0 <= r && r < b.abs
   raise error unless a == b * q + r
 end
-
-def test_div_rem_specific
-  [
-    [71, 20, [3, 11]],
-    [71, -20, [-3, 11]],
-    [-71, 20, [-4, 9]],
-    [-71, -20, [4, 9]],
-  ].each do |(a, b, result)|
-    test_div_rem_for(a, b, result)
-  end
-end
-
-def test_div_rem_random(iterations, maximum)
-  iterations.times do
-    test_div_rem_for(Random.rand(maximum), Random.rand(maximum))
-  end
-end
-
-def test_division_with_remainder
-  test_div_rem_specific
-  test_div_rem_random(10 ** 4, 10 ** 8)
-end
 {% endhighlight %}
-
-The first function is the one that encodes the properties of
-`division_with_remainder`.  The rest is a testing strategy that includes
-specific and randomized test cases.  The language you use may have a
-powerful property-based testing framework that is capable of testing the
-given properties over a large search space using random samples and
-fuzzing.  In the sections that follow, only the relevant properties of a
-function will be shown in a testing function.
 
 ---
 ### divisibility and remainders
@@ -198,6 +165,3 @@ is no longer needed.  Simply put, $$ b $$ divides $$ a $$ if and only if
 
 1. Write a `division_with_remainder` function in the language of your
 choice and write tests to verify its correctness.
-
-
-

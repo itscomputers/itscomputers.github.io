@@ -1,6 +1,5 @@
 ---
 layout: section
-title: bezout's identity
 chapter: 1
 section: 4
 prev: greatest-common-divisor
