@@ -8,7 +8,7 @@ next: greatest-common-divisor
 permalink: division-with-remainder
 ---
 
-The [naive divisibility function](/divisibility#ruby-naive-divides)
+The [naive divisibility solution](/divisibility#exercise-naive-divides)
 in the previous section has a `while` loop whose termination depends on
 the following principle.
 
@@ -56,6 +56,15 @@ Before proving the division algorithm, here are a few examples.
 > $$ a = -bQ - R = bq + r $$ with $$ 0 \le r < |b|. $$
 {: .proof}
 
+<span id="exercises-division-with-remainder" />
+> **`exercises`**:
+> Find the quotient and remainder when dividing:
+> 1. $$ 345 $$ by $$ 14 $$
+> 2. $$ -872 $$ by $$ 77 $$
+> 3. $$ 7373 $$ by $$ -205 $$
+> 4. $$ -762 $$ by $$ -11 $$
+{: .exercise}
+
 ---
 ### in code
 
@@ -64,9 +73,9 @@ operator likely will not match the specification given by the division
 algorithm.  When the dividend or divisor is negative, it may result
 in a negative remainder.
 
-In ruby, integer division is floor division, so the quotient `a / b` is
-computed by rounding down the rational number $$ a / b. $$  The sign of
-the remainder `a % b` is the same as the sign of the divisor `b`.
+In ruby, for example, integer division is floor division, so the quotient
+`a / b` is computed by rounding down the rational number $$ a / b. $$ The
+sign of the remainder `a % b` is the same as the sign of the divisor `b`.
 
 |   `a` |   `b` | `a / b` | `a % b` |
 |------:|------:|--------:|--------:|
@@ -75,9 +84,10 @@ the remainder `a % b` is the same as the sign of the divisor `b`.
 | `-71` |  `20` |    `-4` |     `9` |
 | `-71` | `-20` |     `3` |   `-11` |
 
-In rust, integer division is truncation, so the quotient `a / b` is
-computed by rounding the rational number $$ a / b $$ toward zero.  The
-sign of the remainder `a % b` is the same as the sign of the dividend `a`.
+In rust, on the other hand, integer division is truncation, so the
+quotient `a / b` is computed by rounding the rational number $$ a / b $$
+toward zero.  The sign of the remainder `a % b` is the same as the sign
+of the dividend `a`.
 
 |   `a` |   `b` | `a / b` | `a % b` |
 |------:|------:|--------:|--------:|
@@ -86,33 +96,33 @@ sign of the remainder `a % b` is the same as the sign of the dividend `a`.
 | `-71` |  `20` |    `-3` |   `-11` |
 | `-71` | `-20` |     `3` |   `-11` |
 
-There are various ways to implement the division algorithm, depending on
-the properties of the language.  Here are two examples.
+<span id="exercise-division-algorithm" />
+> **`exercise`**:
+> Write a function that takes an integer `a` and a noninteger `b` as
+> inputs, and outputs a quotient `q` and a remainder `r` satisifying
+> the [division algorithm](#division-algorithm).
+{: .exercise}
 
-<span id="ruby-division-with-remainder" />
+{% include button.html id="ruby-division-algorithm" %}
+<div id="ruby-division-algorithm" style="display: none;">
 {% highlight ruby %}
 # ruby
-def division_with_remainder(a, b)
+def div_rem(a, b)
+  r = a % b
+  r -= b if b < 0
+  q = (a - r) / b
+
+  [q, r]
+end
+
+def div_rem_alternate(a, b)
   q, r = a.divmod(b)
 
-  b < 0 ? [q + 1, r - b] : [q, r]
+  return [q + 1, r - b] if b < 0
+  [q, r]
 end
 {% endhighlight %}
-
-<span id="rust-division-with-remainder" />
-{% highlight rust %}
-// rust
-fn division_with_remainder(a: i32, b: i32) -> (i32, i32) {
-  let r = if a < 0 {
-    a % b + i32::abs(b)
-  } else {
-    a % b
-  };
-  let q = (a - r) / b;
-
-  (q, r)
-}
-{% endhighlight %}
+</div>
 
 ---
 ### testing
@@ -121,12 +131,13 @@ There are many testing strategies, but specifying the properties that the
 result of a function should satisfy can be very useful.  This is
 particularly true when using property-based testing.
 
-The important properties of division with remainder are given below.
+The important properties of division with remainder are encoded in the
+test below.
 
 {% highlight ruby %}
 # ruby
-def test_div_rem_for(a, b)
-  q, r = division_with_remainder(a, b)
+def test_div_rem(a, b)
+  q, r = div_rem(a, b)
   error = "`division_with_remainder` failed for #{a}, #{b}"
 
   raise error unless 0 <= r && r < b.abs
@@ -155,13 +166,7 @@ this proposition makes clear.
 {: .proof}
 
 Using this proposition, the
-[naive divisibility function](/divisibility#ruby-naive-divides)
+[naive divisibility solution](/divisibility#exercise-naive-divides)
 is no longer needed.  Simply put, $$ b $$ divides $$ a $$ if and only if
 `a % b == 0`.
 
----
-<span id="exercises" />
-### exercises
-
-1. Write a `division_with_remainder` function in the language of your
-choice and write tests to verify its correctness.

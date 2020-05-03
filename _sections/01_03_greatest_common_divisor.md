@@ -32,6 +32,13 @@ and can only have finitely many positive common divisors since any
 positive divisor of an integer is less than or equal to its absolute
 value.
 
+<span id="exercises-gcd" />
+> **`exercises`**:
+> 1. Explain why $$ \gcd(0, 0) $$ is undefined.
+> 1. If $$ a $$ is nonzero, prove that $$ \gcd(a, 0) = \vert a \vert. $$
+> 1. If $$ b \mid a, $$ prove that $$ \gcd(a, b) = \vert b \vert. $$
+{: .exercise}
+
 ---
 ### naive computation
 
@@ -46,12 +53,17 @@ $$ \{ 1, 2, 5, 7, 10, 14, 35, 70 \} $$
 $$ \{ 1, 2, 7, 14 \} $$
 - the greatest common divisor is $$ \gcd(322, 70) = 14 $$
 
-Programatically, this naive approach might look something like this.
+<span id="exercise-naive-gcd" />
+> **`exercise`**:
+> Write a naive `gcd` function that returns the greatest common divisor of two
+> integer inputs.  It should only rely on divisibility checks.
+{: .exercise}
 
-<span id="ruby-naive-gcd" />
+{% include button.html id="ruby-naive-gcd" %}
+<div id="ruby-naive-gcd" style="display: none;">
 {% highlight ruby %}
 # ruby
-def gcd(a, b)
+def naive_gcd(a, b)
   divisor = nil
   maximum = [a.abs, b.abs].max
 
@@ -64,6 +76,7 @@ def gcd(a, b)
   divisor
 end
 {% endhighlight %}
+</div>
 
 ---
 ### Euclidean algorithm
@@ -111,26 +124,47 @@ In the Euclidean algorithm, the last nonzero remainder is the gcd of the
 original two integers.  The gcd is computed without explicitly finding
 any of the divisors.
 
-Here is a concise formulation of the Euclidean algorithm.
+<span id="exercise-euclidean-algorithm" />
+> **`exercise`**:
+> Write a Euclidean algorithm function that prints the division algorithm
+> result from each step. When run on the inputs `(322, 70)`, for
+> example, it should print
+> <pre class="console">
+> 322 == 70 * 4 + 42
+> 70 == 42 * 1 + 28
+> 42 == 28 * 1 + 14
+> 28 == 14 * 2 + 0
+> </pre>
+{: .exercise}
+
+{% include button.html id="ruby-euclidean-algorithm" %}
+<div id="ruby-euclidean-algorithm" style="display: none;">
+{% highlight ruby %}
+def euclidean_algorithm(a, b)
+  while b != 0
+    q, r = div_rem(a, b)
+    puts "#{a} == #{b} * #{q} + #{r}"
+  end
+end
+{% endhighlight %}
+</div>
+
+---
+### computation of gcd
+
+As mentioned, the Euclidean algorithm can be used to compute the greatest
+common divisor.  One formulation of this is the following:
 
 <span id="euclidean-algorithm" />
 > **`Euclidean algorithm`**:
 > To compute $$ \gcd(a, b) $$
 > 1. If $$ b = 0, $$ return $$ \vert a \vert $$
 > 2. Otherwise, compute $$ a = bq + r $$ and return to step 1, replacing
-> $$ (a, b) $$ with $$ (b, r). $$
+> $$ (a, b) $$ with $$ (b, r) $$
 
 The Euclidean algorithm terminates after finitely many steps.  Since the
-remainders form a decreasing sequence of positive integers, there are
+remainders form a decreasing sequence of positive integers, there
 can only be finitely many of them.
-
-This new algorithm to compute the gcd is very fast: the growth is
-logarithmic in the smaller of the two integers.  In fact, it can be shown
-that the number of steps is at most 5 times the number of its decimal
-digits.
-
----
-### in code
 
 In most programming languages, the modulus operator may return a negative
 remainder when dealing with negative values.  However, the result of
@@ -147,31 +181,35 @@ algorithm may be implemented using only the modulus operator.
 |  `42 % 28 == 14` | $$ = \gcd(28, 14) $$ |
 |   `28 % 14 == 0` | $$ = 14 $$           |
 
-An iterative implementation in ruby.
+<span id="exercise-gcd" />
+> **`exercise`**:
+> Write a `gcd` function that uses the language's modulus operator: it
+> should take two integer inputs and produce their greatest common
+> divisor.  Remember that $$ gcd(0, 0) $$ is undefined.
+{: .exercise}
 
-<span id="ruby-gcd" />
+{% include button.html id="ruby-gcd" %}
+<div id="ruby-gcd" style="display: none;">
 {% highlight ruby %}
 # ruby
 def gcd(a, b)
   while b != 0
     a, b = [b, a % b]
   end
+
   a == 0 ? nil : a.abs
 end
 {% endhighlight %}
+</div>
 
-A recursive implementation in rust.
+This new `gcd` function is much faster than the naive version: it grows
+logarithmically as opposed to linearly.  This fact will be proven later.
 
-<span id="rust-gcd" />
-{% highlight rust %}
-fn gcd(a: i32, b: i32) -> i32 {
-  match (a, b) {
-    (0, 0) => panic!("gcd(0, 0) is undefined"),
-    (x, 0) => i32::abs(x),
-    _ => gcd(b, a % b)
-  }
-}
-{% endhighlight %}
+<span id="exercise-gcd-benchmark" />
+> **`exercise`**:
+> Benchmark `gcd` vs `naive_gcd` to convince yourself of the stated time
+> complexity.
+{: .exercise}
 
 ---
 ### testing
@@ -194,11 +232,11 @@ function.
 
 {% highlight ruby %}
 # ruby
-def test_gcd_for(a, b)
+def test_gcd(a, b)
   d = result || gcd(a, b)
   error = "`gcd` failed for #{a}, #{b}"
 
-  raise error if d.nil? && (a != 0 || b != 0)
+  raise error if a == 0 && b == 0 && !d.nil?
   raise error unless d > 0
   raise error unless a % d == 0
   raise error unless b % d == 0
@@ -206,26 +244,3 @@ def test_gcd_for(a, b)
 end
 {% endhighlight %}
 
----
-### exercises
-1. Explain why $$ \gcd(0, 0) $$ is undefined.
-
-1. If $$ a $$ is nonzero, prove that $$ \gcd(a, 0) = \vert a \vert. $$
-
-1. If $$ b \mid a, $$ prove that $$ \gcd(a, b) = \vert b \vert. $$
-
-1. Write a gcd function in the language of your choice.
-
-1. Perform some benchmarking to verify that the time complexity of your
-gcd function grows logarithmically in the size of the smaller of the two
-arguments.
-
-1. Write a Euclidean algorithm function that prints the division algorithm
-result from each step used.  When run on the inputs `(322, 70)`, for
-example, it should print:
-<pre class="console">
-322 == 70 * 4 + 42
-70 == 42 * 1 + 28
-42 == 28 * 1 + 14
-28 == 14 * 2 + 0
-</pre>

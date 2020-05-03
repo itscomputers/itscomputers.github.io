@@ -15,7 +15,7 @@ already been defined and is well understood.
 > **`definition`**:
 > A nonzero integer $$ b $$ *divides* an integer $$ a $$ if there exists
 > some integer $$ n $$ such that $$ a = bn. $$
-{: definition}
+{: .definition}
 
 Here are a few examples:
 - $$ 15 $$ divides $$ 45 $$ since $$ 45 = 15 \cdot 3 $$
@@ -23,11 +23,26 @@ Here are a few examples:
 - $$ 10 $$ does not divide $$ 45 $$ since $$ 45 $$ is between
 $$ 40 = 10 \cdot 4 $$ and $$ 50 = 10 \cdot 5 $$
 
-Notice that the above definition is synonymous with saying that $$ b $$
+<span id="exercises-divides" />
+> **`exercises`**:
+> Use the definition of *divides* to complete the following proofs.
+> 1. Prove that any nonzero integer divides $$ 0. $$
+> 2. Prove that $$ 1 $$ and $$ -1 $$ divide any integer.
+> 3. Prove that any nonzero integer divides itself.
+> 4. If $$ a $$ and $$ b $$ are positive integers and $$ b $$ divides
+> $$ a, $$ prove that $$ b \le a. $$
+> 5. Prove that two integers that divide each other must be equal.
+> 6. Prove that the `divides` relation is *transitive*, ie
+> if $$ c \mid b $$ and $$ b \mid a, $$ prove that $$ c \mid a. $$
+{: .exercise}
+
+
+The above definition is synonymous with saying that $$ b $$
 may be expressed as a multiple of $$ a. $$  In fact, the following
 statements are equivalent and mean that $$ a $$ is can be expressed as
 $$ bn. $$
 - $$ b $$ divides $$ a $$
+- $$ b $$ is a divisor of $$ a $$
 - $$ a $$ is divisible by $$ b $$
 - $$ a $$ is a multiple of $$ b $$
 
@@ -46,12 +61,15 @@ by $$ 15, $$ ie, that $$ 45 / 15 $$ is an integer.
 ---
 ### in code
 
-As the last example suggests, a naive approach to determining divisibility
-is to check all multiples of $$ b $$ until you surpass $$ a. $$ Here is a
-ruby implementation of this naive divisibility algorithm, assuming that
-both $$ a $$ and $$ b $$ are positive.
+<span id="exercise-naive-divides" />
+> **`exercise`**:
+> Using *only* addition, multiplication, and comparison, write a function
+> that takes as input two positive integers `b` and `a` and returns
+> a boolean: `true` if $$ b \mid a $$ and `false` if $$ b \nmid a. $$
+{: .exercise}
 
-<span id="ruby-naive-divides" />
+{% include button.html id="ruby-naive-divides" %}
+<div id="ruby-naive-divides" style="display: none;">
 {% highlight ruby %}
 # ruby
 def divides?(b, a)
@@ -63,6 +81,7 @@ def divides?(b, a)
   m == a
 end
 {% endhighlight %}
+</div>
 
 ---
 ### linear combinations
@@ -101,44 +120,15 @@ often.
 > this proves that $$ d \mid c. $$
 {: .proof}
 
----
-<span id="exercises" />
-### exercises
-
-1. Explain why $$ b $$ is required to be nonzero in the
-[definition of *divides*](#divides).
-
-1. Find all integers that divide every other integer, if any exist.
-
-1. Prove that every integer divides $$ 0. $$
-
-1. Prove that every integer divides itself.
-
-1. If $$ a $$ and $$ b $$ are positive integers and $$ b $$ divides
-$$ a, $$ prove that $$ b $$ is less than or equal to $$ a. $$
-
-1. If two positive integers divide each other, prove that they are equal.
-
-1. Prove that the `divides` relation is *transitive*.  In other words,
-if $$ c \mid b $$ and $$ b \mid a, $$ prove that $$ c \mid a. $$
-
-1. If $$ d $$ divides both $$ a $$ and $$ b, $$ prove that $$ d $$ divides
-their sum $$ a + b. $$
-
-1. Show that the converse of the previous exercise is not true by
-producing a counter-example.
-
-1. If $$ d $$ divides either $$ a $$ or $$ b, $$ prove that $$ d $$
-divides their product $$ ab. $$
-
-1. Show that the converse of the previous exercise is not true by
-producing a counter-example.
-
-1. Write an improved version of the
-[naive divisibility function](#ruby-naive-divides) above.  It should
-take *any nonzero* integer $$ b $$ and *any* integer $$ a $$ and return `true`
-if `b` divides `a` and `false` otherwise.  The function
-- may be in the language of your choice
-- should **only** use addition, multiplication, and comparison.
-- should handle negative inputs as well as positive.
+<span id="exercises-divisibility" />
+> **`exercises`**:
+> 1. If $$ d $$ divides both $$ a $$ and $$ b, $$ prove that $$ d $$ divides
+> their sum $$ a + b. $$
+> 2. Disprove the converse of the previous exercise by
+> producing a counter-example.
+> 3. If $$ d $$ divides either $$ a $$ or $$ b, $$ prove that $$ d $$
+> divides their product $$ ab. $$
+> 4. Disprove the converse of the previous exercise by
+> producing a counter-example.
+{: .exercise}
 

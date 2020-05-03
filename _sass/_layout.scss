@@ -70,9 +70,14 @@ blockquote, .highlight {
 
 blockquote.proof {
   background: $proof-background-color;
-  margin: 30px 20px;
   border: 1px solid $proof-border-color;
+  margin: 30px 20px;
   outline: none;
+}
+
+blockquote.exercise {
+  background: $exercise-background-color;
+  outline: $exercise-outline-color double 3px;
 }
 
 strong code {
@@ -92,6 +97,22 @@ td, th {
 th {
   background: $table-header-background-color;
   border-bottom: 3px solid $table-border-color;
+}
+
+button {
+  background: $button-background-color;
+  padding: 10px 15px;
+  margin-left: 10px;
+  color: $button-text-color;
+  border: 1px solid $button-border-color;
+  border-radius: 2px;
+  font-family: $code-font;
+  &:hover {
+    border: 1px solid $button-border-hover-color;
+  }
+  &::-moz-focus-inner {
+    border: none;
+  }
 }
 
 .container {

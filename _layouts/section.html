@@ -6,6 +6,17 @@ layout: default
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
+<script>
+  function showContent(id) {
+    let element = document.getElementById(id);
+    if (element.style.display === 'none') {
+      element.style.display = 'block';
+    } else {
+      element.style.display = 'none';
+    }
+  }
+</script>
+
 <h3>{{ page.chapter }}.{{ page.section }} - {{ page.title }}</h3>
 
 {% include breadcrumbs.html %}
