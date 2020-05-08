@@ -45,7 +45,7 @@ value.
 
 The greatest common divisor can be computed naively by finding the positive
 divisors of each number and taking the intersection of the two sets.  For
-example, to compute $$ \gcd(322, 56) $$
+example, to compute $$ \gcd(322, 70) $$
 - the positive divisors of $$ 322 $$ are
 $$ \{ 1, 2, 7, 14, 23, 46, 161, 322 \} $$
 - the positive divisors of $$ 70 $$ are
