@@ -82,7 +82,7 @@ end
 ---
 ### Euclidean algorithm
 
-This gcd algorithm is slow, growing linearly in the size of the smaller
+This naive gcd algorithm is slow, growing linearly in the size of the smaller
 of the two integers.  The next proposition is instrumental in
 developing a more efficient algorithm to compute the gcd.
 
@@ -163,7 +163,7 @@ common divisor.  One formulation of this is the following:
 > 2. Otherwise, compute $$ a = bq + r $$ and return to step 1, replacing
 > $$ (a, b) $$ with $$ (b, r) $$
 
-The Euclidean algorithm terminates after finitely many steps.  Since the
+The Euclidean algorithm terminates after finitely many steps: since the
 remainders form a decreasing sequence of positive integers, there
 can only be finitely many of them.
 
