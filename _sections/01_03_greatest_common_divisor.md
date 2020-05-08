@@ -234,7 +234,7 @@ function.
 {% highlight ruby %}
 # ruby
 def test_gcd(a, b)
-  d = result || gcd(a, b)
+  d = gcd(a, b)
   error = "`gcd` failed for #{a}, #{b}"
 
   raise error if a == 0 && b == 0 && !d.nil?
