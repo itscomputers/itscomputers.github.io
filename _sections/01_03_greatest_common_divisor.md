@@ -56,7 +56,7 @@ $$ \{ 1, 2, 7, 14 \} $$
 
 <span id="exercise-naive-gcd" />
 > **`exercise`**:
-> Write a naive `gcd` function that returns the greatest common divisor of two
+> Write a `naive_gcd` function that returns the greatest common divisor of two
 > integer inputs.  It should only rely on divisibility checks.
 {: .exercise}
 
@@ -66,9 +66,9 @@ $$ \{ 1, 2, 7, 14 \} $$
 # ruby
 def naive_gcd(a, b)
   divisor = nil
-  maximum = [a.abs, b.abs].max
+  limit = [a.abs, b.abs].min
 
-  (1..maximum).each do |d|
+  (1..limit).each do |d|
     if a % d == 0 && b % d == 0
       divisor = d
     end
