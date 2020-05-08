@@ -4,6 +4,7 @@ title: greatest common divisor
 chapter: 1
 section: 3
 prev: division-with-remainder
+next: bezouts-identity
 permalink: greatest-common-divisor
 ---
 
