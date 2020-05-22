@@ -145,6 +145,7 @@ def euclidean_algorithm(a, b)
   while b != 0
     q, r = div_rem(a, b)
     puts "#{a} == #{b} * #{q} + #{r}"
+    a, b = b, r
   end
 end
 {% endhighlight %}
