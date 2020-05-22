@@ -31,36 +31,37 @@ However, a brute force search may not be successful so quickly.
 > expressed as a linear combination of the two integers.
 >
 > The Euclidean algorithm can be thought of as a sequence of equations
-> of the form $$ i = jq + r. $$  If $$ i $$ and $$ j $$ are both linear
+> of the form $$ a' = b'q + r. $$  If $$ a' $$ and $$ b' $$ are both linear
 > combinations of $$ a $$ and $$ b, $$ then so is $$ r. $$  In particular,
-> if $$ i = ax_0 + by_0 $$ and $$ j = ax_1 + by_1, $$ then
+> if $$ a' = ax_0 + by_0 $$ and $$ b' = ax_1 + by_1, $$ then
 > $$ r = a(x_0 - qx_1) + b(y_0 - qy_1). $$  In the first instance,
-> $$ i = a $$ and $$ j = b, $$ which are both linear combinations, namely
-> $$ a = a(1) + b(0) $$ and $$ b = a(0) + b(1). $$  Therefore, the next
+> $$ a' = a $$ and $$ b' = b, $$ which are both linear combinations, namely
+> $$ a' = a(1) + b(0) $$ and $$ b' = a(0) + b(1). $$  Therefore, the next
 > remainder is a linear combination, implying the one after is, and so on.
 {: .proof}
 
 This proof is probably best illustrated with an example, say $$ a = 322 $$
 and $$ b = 70. $$
 
-|   `i` |  `j` | `q` |   `r` |   `(x, y)` |
-|------:|-----:|----:|------:|-----------:|
-|       |      |     | `322` |   `(1, 0)` |
-|       |      |     |  `70` |   `(0, 1)` |
-| `322` | `70` | `4` |  `42` |  `(1, -4)` |
-|  `70` | `42` | `1` |  `28` |  `(-1, 5)` |
-|  `42` | `28` | `1` |  `14` |  `(2, -9)` |
-|  `28` | `14` | `2` |   `0` | `(-5, 23)` |
+|  `a'` | `b'` | `q` |   `r` |   `(x, y)`                         |
+|------:|-----:|----:|------:|:-----------------------------------|
+|       |      |     | `322` |   `(1, 0)`                         |
+|       |      |     |  `70` |   `(0, 1)`                         |
+| `322` | `70` | `4` |  `42` |  `(1, -4) == (1 - 0(4), 0 - 1(4))` |
+|  `70` | `42` | `1` |  `28` |  `(-1, 5) == (0 - 1(1), 1 + 4(1)`  |
+|  `42` | `28` | `1` |  `14` |  `(2, -9) == (1 + 1(1), -4 - 5(1)` |
+|  `28` | `14` | `2` |   `0` | `(-5, 23) == (-1 - 2(2), 5 + 9(2)` |
 
 Ignoring the first two rows and the last column, this table has the same
-information as the Euclidean algorithm, namely `i == j * q + r` always
-holds.  The last column is how to express `r` as a linear combination,
-namely `r == 322*x + 70*y` is always true.  The first two
-$$ (x, y) $$ pairs show how to express `322` and `70` as linear
-combinations of themselves.  After that, each pair is deduced from the
-previous two pairs using the recursive relationships $$ x_2 = x_0 - qx_1 $$
-and $$ y_2 = y_0 - qy_1. $$  In other words, the `q` value along with the
-previous two $$ (x, y) $$ pairs is used to produce the next pair.
+information as the Euclidean algorithm, namely `a' == b' * q + r` always
+holds.  The last column is how to express `r` as a linear combination of
+the original `a` and `b`, namely `r == 322*x + 70*y` is always true.  The
+first two $$ (x, y) $$ pairs show how to express `322` and `70` as linear
+combinations of themselves.  After that, each $$ (x, y) $$ pair is deduced
+from the previous two pairs using the recursive relationships
+$$ x_2 = x_0 - qx_1 $$ and $$ y_2 = y_0 - qy_1. $$  In other words, the `q`
+value along with the previous two $$ (x, y) $$ pairs is used to produce the
+next pair.
 
 The second to last row is the one which gives a solution to Bezout's
 identity, that $$ 322x + 70y = \gcd(322, 70) $$ for
@@ -78,12 +79,12 @@ As another example, take $$ a = -322 $$ and $$ b = 70. $$
 |   `70` | `28` |  `2` |   `14` | `(-2, -9)` |
 |   `28` | `14` |  `2` |   `0`  |  `(5, 23)` |
 
-A solution to $$ -322x + 70y = \gcd(-322, 70) $$ is $$ (x, y) = (5, 23). $$
+A solution to $$ -322x + 70y = \gcd(-322, 70) $$ is $$ (x, y) = (-2, -9). $$
 
 ---
 ### in code
 
-The proof above is a constructive proof: it not only proves that a solution
+The proof above is a constructive proof -- it not only proves that a solution
 exists, but also shows how to produce a solution.
 
 <span id="exercise-bezout" />
@@ -118,9 +119,9 @@ end
 The `bezout` function is very simple to test since a solution must satisfy
 the given equation.  However, you will want to ensure that your testing
 includes inputs with negative values, since getting the signs right can
-sometimes be tricky, depending on the implementation.  Make sure to test
-negative values for input pairs like `(a, 0)`, `(0, b)`, or `(a, b)`
-with $$ b \mid a, $$ for example.
+sometimes be tricky, depending on the implementation.  In particular,
+make sure to test negative values for input pairs like `(a, 0)`, `(0, b)`,
+or `(a, b)` with $$ b \mid a, $$ for example.
 
 {% highlight ruby %}
 # ruby

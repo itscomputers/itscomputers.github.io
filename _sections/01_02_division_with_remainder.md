@@ -98,7 +98,7 @@ of the dividend `a`.
 
 <span id="exercise-division-algorithm" />
 > **`exercise`**:
-> Write a function that takes an integer `a` and a noninteger `b` as
+> Write a function that takes an integer `a` and a nonzero integer `b` as
 > inputs, and outputs a quotient `q` and a remainder `r` satisifying
 > the [division algorithm](#division-algorithm).
 {: .exercise}
