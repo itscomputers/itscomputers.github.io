@@ -238,7 +238,10 @@ def test_gcd(a, b)
   d = gcd(a, b)
   error = "`gcd` failed for #{a}, #{b}"
 
-  raise error if a == 0 && b == 0 && !d.nil?
+  if a == 0 && b == 0
+    raise error unless d.nil?
+    return
+  end
   raise error unless d > 0
   raise error unless a % d == 0
   raise error unless b % d == 0
