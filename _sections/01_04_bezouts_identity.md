@@ -183,8 +183,7 @@ def bezout(a, b)
     pairs = [pairs.last, next_pair]
   end
 
-  return pairs.first.map(&:-) if a < 0
-  pairs.first
+  a < 0 ? pairs.first.map(&:-) : pairs.first
 end
 {% endhighlight %}
 </div>
