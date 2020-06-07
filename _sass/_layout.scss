@@ -9,14 +9,19 @@ body {
 
 main {
   background: $main-background-color;
-  padding: 50px 15px;
+  padding: 50px 15px 0;
   max-width: $content-width;
-  margin: 0 auto 50px;
+  margin: 0 auto;
+}
+
+article {
+  padding-bottom: 20px;
 }
 
 footer {
-  text-align: center;
-  padding: 20px 0 40px;
+  background: $body-background-color;
+  padding: 20px 0;
+  margin: 0 -15px;
 }
 
 h1, h2, h3 {
@@ -53,35 +58,16 @@ ul {
   list-style-type: square;
 }
 
-.section-list {
-  font-family: $link-font;
-}
-
-blockquote, .highlight {
-  background: $blockquote-background-color;
-  outline: $blockquote-outline-color double 3px;
-  padding: 1px 15px;
-  margin: 30px 5px;
-}
-
-.highlight {
-  overflow: auto;
-}
-
-blockquote.proof {
-  background: $proof-background-color;
-  border: 1px solid $proof-border-color;
-  margin: 30px 20px;
-  outline: none;
-}
-
-blockquote.exercise {
-  background: $exercise-background-color;
-  outline: $exercise-outline-color double 3px;
+li a, .section-list-item {
+  font-family: $code-font;
 }
 
 strong code {
   font-size: 1.1em;
+}
+
+code, pre, .language-plaintext {
+  font-family: $code-font;
 }
 
 table {
@@ -115,6 +101,49 @@ button {
   }
 }
 
+blockquote, .highlight {
+  background: $blockquote-background-color;
+  outline: $blockquote-outline-color double 3px;
+  padding: 1px 15px;
+  margin: 30px 5px;
+}
+
+.highlight {
+  overflow: auto;
+}
+
+blockquote.proof {
+  background: $proof-background-color;
+  border: 1px solid $proof-border-color;
+  margin: 30px 20px;
+  outline: none;
+}
+
+blockquote.exercise {
+  background: $exercise-background-color;
+  outline: $exercise-outline-color double 3px;
+}
+
+.video-container {
+  width: 80%;
+  margin: 30px 10% 30px 10%;
+}
+
+.video {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  iframe, object, embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .container {
   max-width: $content-width;
   margin: 0 auto;
@@ -123,18 +152,6 @@ button {
 .breadcrumbs {
   display: flex;
   justify-content: space-between;
-}
-
-code, pre, .language-plaintext {
-  font-family: $code-font;
-}
-
-.section-list {
-  font-family: $code-font;
-}
-
-.section-list a {
-  font-family: $code-font;
 }
 
 .language-plaintext, .console, .mjx-chtml {

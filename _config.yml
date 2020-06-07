@@ -10,6 +10,7 @@ github_username: itscomputers
 # build settings
 markdown: kramdown
 include:
+  - _entries
   - _pages
   - _sections
 kramdown:

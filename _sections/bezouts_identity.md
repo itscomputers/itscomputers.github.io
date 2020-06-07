@@ -1,5 +1,6 @@
 ---
 layout: section
+category: number theory
 title: bezout's identity
 chapter: 1
 section: 4

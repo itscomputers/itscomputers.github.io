@@ -1,5 +1,6 @@
 ---
 layout: section
+category: number theory
 title: division with remainder
 chapter: 1
 section: 2

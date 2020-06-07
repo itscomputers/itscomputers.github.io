@@ -1,5 +1,6 @@
 ---
 layout: section
+category: number theory
 title: divisibility
 chapter: 1
 section: 1

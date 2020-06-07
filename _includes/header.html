@@ -2,10 +2,10 @@
 	<div class="container">
 		<nav>
 			<ul>
-        <li><a href="/">number theory</a></li>
-        {% for page in site.pages %} {% if page.isheader %} {% if page.title %}
-          <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
-        {% endif %} {% endif %} {% endfor %}
+        {% assign nav_pages = site.pages | where: "nav", "true" | sort: "position" %}
+        {% for node in nav_pages %}
+          <li><a href="{{ node.url | prepend: site.baseurl }}">{{ node.nav_title }}</a></li>
+        {% endfor %}
 			</ul>
 		</nav>
 	</div>

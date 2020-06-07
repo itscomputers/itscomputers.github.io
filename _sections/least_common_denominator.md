@@ -1,5 +1,6 @@
 ---
 layout: section
+title: least common multiple
 chapter: 1
 section: 5
 prev: bezouts-identity

@@ -1,5 +1,6 @@
 ---
 layout: section
+category: number theory
 title: greatest common divisor
 chapter: 1
 section: 3
