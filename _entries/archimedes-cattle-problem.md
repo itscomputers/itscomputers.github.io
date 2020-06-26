@@ -54,8 +54,9 @@ wisdom.
 ### the cattle problem
 
 Translating the letter, there are four colors of cattle: black, white, yellow,
-and dappled. We label the bulls by the lower-case letters b, w, y, d and the
-cows by the upper-case letters B, W, Y, D. The problem is given in two parts.
+and dappled. We label the bulls by the lower-case letters `b`, `w`, `y`, `d`
+and the cows by the upper-case letters `B`, `W`, `Y`, `D`. The problem is given
+in two parts.
 
 #### part 1
 
@@ -96,7 +97,7 @@ Clearing denominators results in a system of 7 linear integer equations.
 | $$ 42Y = 13w + 13W $$ |
 
 This is an underdetermined system, so there are infinitely many integer solutions.
-A solution can be find either using algebraic manipulations or by reducing the
+A solution can be found either using algebraic manipulations or by reducing the
 following matrix to its reduced-row-echelon form.
 
 {% highlight ruby %}
@@ -140,7 +141,7 @@ are, by his accounting, not entirely unskilled in mathematics!
 #### part 2
 
 In the second paragraph, Archimedes imposes two additional conditions. The
-first condition is that w+b must a square number. Using the computed solution,
+first condition is that $$ w + b $$ must a square number. Using the computed solution,
 we know that
 
 $$ w + b = 17826996 \cdot k = 2^2 \cdot 3 \cdot 11 \cdot 29 \cdot 4657 \cdot k. $$
@@ -252,7 +253,9 @@ $$ { a + b \sqrt{R} \over c } - q = { (a - qc) + b \sqrt{R} \over c } $$
 Inverting:
 
 $$ { c \over (a - qc) + b \sqrt{R} }
-  = { c(a - qc) - bc \sqrt{R} \over (a - qc)^2 - b^2R }
+  = { c(a - qc) - bc \sqrt{R} \over (a - qc)^2 - b^2R } $$
+
+$$ { c \over (a - qc) + b \sqrt{R} }
   = { c(qc - a) + bc \sqrt{R} \over b^2R - (qc - a)^2 } $$
 
 Therefore, the transformation on the tuple $$ (a, b, c) $$ is the following.
@@ -443,6 +446,7 @@ $$ v $$ is divisible by 9314.  Using the continued fraction (which has a period
 of 92) and its convergents, we arrive at a first solution $$ (a, b) $$ with
 
 $$ a = 109931986732829734979866232821433543901088049 $$
+
 $$ b = 50549485234315033074477819735540408986340 $$
 
 Amthor in fact computed this by hand in 1880.  He was also able to prove that
@@ -478,7 +482,7 @@ digits were correct.
 
 In 1965, mathematicians Williams, German, and Zarnke at the University of
 Waterloo used an IBM 7040 and an IBM 1620 to compute the full solution.  It
-took 7:49 hours.  They published the methods in the MAthematics of Computation.
+took 7:49 hours.  They published their methods in the Mathematics of Computation.
 The number itself was deposited in the unpublished mathematical tables of the
 journal.
 
