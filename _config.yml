@@ -1,11 +1,9 @@
 # site settings
-title: computations in number theory
+title: its computers
 email: its_computers@protonmail.com
-description: a text on the intersection of number theory and computing
+description: home to some cool stuff
 baseurl: ''
 url: 'https://itscomputers.github.io'
-twitter_username: its_computers
-github_username: itscomputers
 
 # build settings
 markdown: kramdown
