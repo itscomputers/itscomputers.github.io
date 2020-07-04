@@ -5,8 +5,8 @@ nav: true
 nav_title: its computers
 ---
 
+- <a href="https://ebe.itscomputers.lol">ebe - a number theory library in python</a>
 - <a href="https://number-theory.itscomputers.lol">number theory for programmers (in progress...)</a>
-- <a href="https://github.com/itscomputers/ebe-python">ebe - number theory library in python</a>
 - <a href="https://github.com/itscomputers/advent2019">advent of code 2019</a>
 - <a href="https://github.com/itscomputers/advent2018">advent of code 2018</a>
 
